@@ -6,13 +6,16 @@
 <!-- ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio -->
 <audio
     id="audioPlayer"
-    controls
-    src="https://music.andrewsummers.com/albums/windtrails/10 Breeze.mp3">
+    src="">
         Your browser does not support the <code>audio</code> element.
 </audio><br />
+<button id="play">Play</button>
 <a href="#" id="prev">&lt; Prev</a>
 &nbsp;&nbsp;&nbsp;
 <a href="#" id="next">Next &gt;</a>
+<br /><br />
+Audio State: <div id="audioStateBox"></div><br />
+Current Audio: <div id="currentAudioStateBox"></div><br />
 <script>
 let currentSongIndex = 0;
 
@@ -27,22 +30,69 @@ let songs = [
     'https://music.andrewsummers.com/albums/windtrails/08%20AKOGARE.mp3',
     'https://music.andrewsummers.com/albums/windtrails/09%20Waiting%20Hands.mp3',
     'https://music.andrewsummers.com/albums/windtrails/10%20Breeze.mp3',
+    'https://music.andrewsummers.com/albums/forwardintime/01%20Bumpy%20Sleigh%20Ride.mp3',
+    'https://music.andrewsummers.com/albums/forwardintime/02%20Heart%20of%20Ice.mp3',
+    'https://music.andrewsummers.com/albums/forwardintime/03%20Waiting%20for%20a%20Miracle.mp3',
+    'https://music.andrewsummers.com/albums/forwardintime/04%20Cold%20Winters%20Eve.mp3',
+    'https://music.andrewsummers.com/albums/forwardintime/05%20Snow%20Hills.mp3',
+    'https://music.andrewsummers.com/albums/forwardintime/06%20Bethlehem.mp3',
+    'https://music.andrewsummers.com/albums/forwardintime/07%20The%20Shepherds.mp3',
+    'https://music.andrewsummers.com/albums/forwardintime/08%20Grain%20of%20Wheat.mp3',
+    'https://music.andrewsummers.com/albums/forwardintime/09%20In%20Your%20Hands.mp3',
+    'https://music.andrewsummers.com/albums/forwardintime/10%20All%20Praise%20to%20You.mp3',
+    'https://music.andrewsummers.com/albums/hokkaido/01%20In%20A%20Land%20Without%20God.mp3',
+    'https://music.andrewsummers.com/albums/hokkaido/02%20Keiteki-Ryo.mp3',
+    'https://music.andrewsummers.com/albums/hokkaido/03%20ISC.mp3',
+    'https://music.andrewsummers.com/albums/hokkaido/04%20Gakusei%20Cell.mp3',
+    'https://music.andrewsummers.com/albums/hokkaido/05%20Where\'d%20You%20Go,%20Big%20Smack_.mp3',
+    'https://music.andrewsummers.com/albums/hokkaido/06%20In,%20Yet%20Out.mp3',
+    'https://music.andrewsummers.com/albums/hokkaido/07%20Love,%20It\'s%20A%20Funny%20Thing.mp3',
+    'https://music.andrewsummers.com/albums/hokkaido/08%20Tanuki%20Koji.mp3',
+    'https://music.andrewsummers.com/albums/hokkaido/09%20Caravan.mp3',
+    'https://music.andrewsummers.com/albums/hokkaido/10%20Already%20Over.mp3'
 ];
 
+let audioState = 'stopped';
+let audioStateBox = document.getElementById('audioStateBox');
+let currentAudioStateBox = document.getElementById('currentAudioStateBox');
 let audioPlayer = document.getElementById('audioPlayer');
-
+let play = document.getElementById('play');
 let prev = document.getElementById('prev');
 let next = document.getElementById('next');
 
+
+// ref: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
+play.addEventListener('click', event => {
+    audioPlayer.src = songs[currentSongIndex];
+    currentAudioStateBox.innerHTML = songs[currentSongIndex];
+    if (audioState === 'stopped' || audioState === 'paused') {
+        audioState = 'playing';
+        audioPlayer.play();
+    } else {
+        audioState = 'paused';
+        audioPlayer.pause();
+    }
+    audioStateBox.innerHTML = audioState;
+});
+
+audioPlayer.addEventListener('ended', event => {
+    getNextSong();
+    audioPlayer.play();
+    currentAudioStateBox.innerHTML = songs[currentSongIndex];
+});
+
 next.addEventListener('click', event => {
+    getNextSong();
+});
+
+function getNextSong() {
     if ((currentSongIndex + 1) < songs.length) {
         currentSongIndex++;
     } else {
         currentSongIndex = 0;
     }
     audioPlayer.src = songs[currentSongIndex];
-});
-  
+}
 </script>
 </body>
 </html>
