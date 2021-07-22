@@ -62,6 +62,8 @@ play.addEventListener('click', event => {
         audioPlayer.currentTime = currentAudioTime;
         audioState = 'playing';
         audioPlayer.play();
+        // ref: https://developer.mozilla.org/en-US/docs/Web/API
+        //   /WindowOrWorkerGlobalScope/setInterval
         timeChecking = setInterval(getCurrentSongTime, 1000);
     } else {
         audioPlayer.currentTime = currentAudioTime;
