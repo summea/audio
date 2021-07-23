@@ -80,9 +80,29 @@ audioPlayer.addEventListener('ended', event => {
     currentAudioStateBox.innerHTML = songs[currentSongIndex].name;
 });
 
+prev.addEventListener('click', event => {
+    getPrevSong();
+    audioPlayer.play();
+    currentAudioStateBox.innerHTML = songs[currentSongIndex].name;
+});
+
 next.addEventListener('click', event => {
     getNextSong();
+    audioPlayer.play();
+    currentAudioStateBox.innerHTML = songs[currentSongIndex].name;
 });
+
+function getPrevSong() {
+    if ((currentSongIndex - 1) > 0) {
+        currentSongIndex--;
+    } else {
+        currentSongIndex = 0;
+        if ((songs.length - 1) > 0) {
+            currentSongIndex = songs.length - 1;
+        }
+    }
+    audioPlayer.src = songs[currentSongIndex].url;
+}
 
 function getNextSong() {
     if ((currentSongIndex + 1) < songs.length) {
