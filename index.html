@@ -7,6 +7,12 @@
 <audio id="audioPlayer" src="">
 Your browser does not support the <code>audio</code> element.
 </audio><br />
+<input type="range"
+    id="audioPlayerSlider"
+    min="0"
+    max="301"
+    value="0"
+    step="1" />
 <button id="play">Play</button>
 <a href="#" id="prev">&lt; Prev</a>
 &nbsp;&nbsp;&nbsp;
@@ -15,6 +21,7 @@ Your browser does not support the <code>audio</code> element.
 Audio State: <div id="audioStateBox"></div><br />
 Current Audio: <div id="currentAudioStateBox"></div><br />
 Current Audio Time: <div id="currentAudioTimeBox"></div><br />
+Current Audio Time Length: <div id="currentAudioTimeLengthBox"></div><br />
 <script>
 let currentSongIndex = 0;
 let songs = [];
@@ -41,8 +48,10 @@ window.onload = function() {
 let audioState = 'stopped';
 let audioStateBox = document.getElementById('audioStateBox');
 let currentAudioTime = 0;
+let currentAudioTimeLength = 0;
 let currentAudioStateBox = document.getElementById('currentAudioStateBox');
 let currentAudioTimeBox = document.getElementById('currentAudioTimeBox');
+let currentAudioTimeLengthBox = document.getElementById('currentAudioTimeLengthBox');
 let audioPlayer = document.getElementById('audioPlayer');
 let play = document.getElementById('play');
 let prev = document.getElementById('prev');
@@ -50,7 +59,27 @@ let next = document.getElementById('next');
 
 function getCurrentSongTime() {
     currentAudioTime = audioPlayer.currentTime;
-    currentAudioTimeBox.innerHTML = Math.round(currentAudioTime);
+    currentAudioTimePieces = convertSecToMin(currentAudioTime);
+    let minutesWithPadding = currentAudioTimePieces.minutes;
+    if (currentAudioTimePieces.minutes < 10) {
+        minutesWithPadding = "0" + currentAudioTimePieces.minutes;
+    }
+    let secondsWithPadding = currentAudioTimePieces.seconds;
+    if (currentAudioTimePieces.seconds < 10) {
+        secondsWithPadding = "0" + currentAudioTimePieces.seconds;
+    }
+    currentAudioTimeBox.innerHTML = minutesWithPadding+":"+secondsWithPadding;
+    currentAudioTimeLength = audioPlayer.duration;
+    currentAudioTimeLengthPieces = convertSecToMin(currentAudioTimeLength);
+    let minutesLengthWithPadding = currentAudioTimeLengthPieces.minutes;
+    if (currentAudioTimeLengthPieces.minutes < 10) {
+        minutesLengthWithPadding = "0" + currentAudioTimeLengthPieces.minutes;
+    }
+    let secondsLengthWithPadding = currentAudioTimeLengthPieces.seconds;
+    if (currentAudioTimeLengthPieces.seconds < 10) {
+        secondsLengthWithPadding = "0" + currentAudioTimeLengthPieces.seconds;
+    }
+    currentAudioTimeLengthBox.innerHTML = minutesLengthWithPadding+":"+secondsLengthWithPadding;
 }
 
 // ref: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
@@ -91,6 +120,21 @@ next.addEventListener('click', event => {
     audioPlayer.play();
     currentAudioStateBox.innerHTML = songs[currentSongIndex].name;
 });
+
+function convertSecToMin(seconds) {
+    let result = {
+        "minutes": 0,
+        "seconds": 0
+    }
+    // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
+    //   /Global_Objects/Math
+    result.minutes = Math.floor(seconds / 60);
+    result.seconds = Math.round(seconds);
+    if (result.minutes > 0) {
+        result.seconds = Math.round(seconds % result.minutes);
+    }
+    return result; 
+}
 
 function getPrevSong() {
     if ((currentSongIndex - 1) > 0) {
