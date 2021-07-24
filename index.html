@@ -11,9 +11,10 @@ Your browser does not support the <code>audio</code> element.
 <input type="range"
     id="audioPlayerSlider"
     min="0"
-    max="301"
+    max="0"
     value="0"
-    step="1" />
+    step="1"
+    oninput="playbackTimeUpdate(value)" />
 <button id="play">Play</button>
 <a href="#" id="prev">&lt; Prev</a>
 &nbsp;&nbsp;&nbsp;
@@ -54,12 +55,16 @@ let currentAudioStateBox = document.getElementById('currentAudioStateBox');
 let currentAudioTimeBox = document.getElementById('currentAudioTimeBox');
 let currentAudioTimeLengthBox = document.getElementById('currentAudioTimeLengthBox');
 let audioPlayer = document.getElementById('audioPlayer');
+let audioPlayerSlider = document.getElementById('audioPlayerSlider');
 let play = document.getElementById('play');
 let prev = document.getElementById('prev');
 let next = document.getElementById('next');
 
+let playPromise;
+
 function getCurrentSongTime() {
     currentAudioTime = audioPlayer.currentTime;
+    audioPlayerSlider.value = currentAudioTime;
     currentAudioTimePieces = convertSecToMin(currentAudioTime);
     let minutesWithPadding = currentAudioTimePieces.minutes;
     if (currentAudioTimePieces.minutes < 10) {
@@ -71,6 +76,7 @@ function getCurrentSongTime() {
     }
     currentAudioTimeBox.innerHTML = minutesWithPadding+":"+secondsWithPadding;
     currentAudioTimeLength = audioPlayer.duration;
+    audioPlayerSlider.max = currentAudioTimeLength;
     currentAudioTimeLengthPieces = convertSecToMin(currentAudioTimeLength);
     let minutesLengthWithPadding = currentAudioTimeLengthPieces.minutes;
     if (currentAudioTimeLengthPieces.minutes < 10) {
@@ -83,6 +89,21 @@ function getCurrentSongTime() {
     currentAudioTimeLengthBox.innerHTML = minutesLengthWithPadding+":"+secondsLengthWithPadding;
 }
 
+function playbackTimeUpdate(playFromTime) {
+    // ref: https://developers.google.com/web/updates/2017/06
+    //   /play-request-was-interrupted
+    if (playPromise !== undefined) {
+        playPromise.then(_ => {
+            audioPlayer.pause();
+            audioPlayerSlider.value = playFromTime;
+            audioPlayer.currentTime = playFromTime;
+            playPromise = audioPlayer.play();
+        })
+        .catch(error => {
+        });
+    }
+}
+
 // ref: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
 play.addEventListener('click', event => {
     let timeChecking;
@@ -91,7 +112,11 @@ play.addEventListener('click', event => {
     if (audioState === 'stopped' || audioState === 'paused') {
         audioPlayer.currentTime = currentAudioTime;
         audioState = 'playing';
-        audioPlayer.play();
+        //audioPlayer.play();
+        // ref: https://developers.google.com/web/updates/2017/06/
+        //   /play-request-was-interrupted
+        playPromise = audioPlayer.play();
+
         // ref: https://developer.mozilla.org/en-US/docs/Web/API
         //   /WindowOrWorkerGlobalScope/setInterval
         timeChecking = setInterval(getCurrentSongTime, 1000);
