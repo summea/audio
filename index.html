@@ -24,9 +24,14 @@ Audio State: <div id="audioStateBox"></div><br />
 Current Audio: <div id="currentAudioStateBox"></div><br />
 Current Audio Time: <div id="currentAudioTimeBox"></div><br />
 Current Audio Time Length: <div id="currentAudioTimeLengthBox"></div><br />
+<div id="songList">
+  <ul></ul>
+</div>
 <script>
 let currentSongIndex = 0;
 let songs = [];
+let songList = document.getElementById('songList');
+
 window.onload = function() {
     // Get song data
     // ref: https://developer.mozilla.org/en-US/docs/Web/API/Request
@@ -41,6 +46,25 @@ window.onload = function() {
         })
         .then(response => {
             songs = response['songs'];
+            let i = 0;
+            songs.forEach(song => {
+                let li = document.createElement('li');
+                let link = document.createElement('a');
+                let linkText = document.createTextNode(song.name);
+                link.id = i;
+                link.href = song.url;
+                link.className = 'song';
+                link.append(linkText);
+                li.append(link);
+                li.addEventListener('click', event => {
+                    event.preventDefault();
+                    getClickedSong(event);
+                    //audioPlayer.play();
+                    //currentAudioStateBox.innerHTML = songs[currentSongIndex].name;
+                });
+                songList.querySelector('ul').append(li);
+                i++;
+            });
         })
         .catch(error => {
             console.error(error);
@@ -157,7 +181,9 @@ function convertSecToMin(seconds) {
     result.minutes = Math.floor(seconds / 60);
     result.seconds = Math.round(seconds);
     if (result.minutes > 0) {
-        result.seconds = Math.round(seconds % result.minutes);
+        // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+        //   /Reference/Operators/Remainder
+        result.seconds = Math.round(Math.round(seconds) % result.minutes);
     }
     return result; 
 }
@@ -181,6 +207,13 @@ function getNextSong() {
         currentSongIndex = 0;
     }
     audioPlayer.src = songs[currentSongIndex].url;
+}
+
+function getClickedSong(event) {
+    currentSongIndex = event.target.id;
+    const newEvent = new Event('click');
+    audioState = 'paused';
+    play.dispatchEvent(newEvent);
 }
 </script>
 </body>
