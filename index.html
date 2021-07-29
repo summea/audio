@@ -197,7 +197,10 @@ function getPrevSong() {
             currentSongIndex = songs.length - 1;
         }
     }
-    audioPlayer.src = songs[currentSongIndex].url;
+    currentAudioTime = 0;
+    const clickEvent = new Event('click');
+    audioState = 'paused';
+    play.dispatchEvent(clickEvent);
 }
 
 function getNextSong() {
@@ -206,14 +209,18 @@ function getNextSong() {
     } else {
         currentSongIndex = 0;
     }
-    audioPlayer.src = songs[currentSongIndex].url;
+    currentAudioTime = 0;
+    const clickEvent = new Event('click');
+    audioState = 'paused';
+    play.dispatchEvent(clickEvent);
 }
 
 function getClickedSong(event) {
-    currentSongIndex = event.target.id;
-    const newEvent = new Event('click');
+    // Note: the id from the event is actually a string
+    currentSongIndex = Number.parseInt(event.target.id);
+    const clickEvent = new Event('click');
     audioState = 'paused';
-    play.dispatchEvent(newEvent);
+    play.dispatchEvent(clickEvent);
 }
 </script>
 </body>
