@@ -220,6 +220,7 @@ function getClickedSong(event) {
     currentSongIndex = Number.parseInt(event.target.id);
     const clickEvent = new Event('click');
     audioState = 'paused';
+    currentAudioTime = 0;
     play.dispatchEvent(clickEvent);
 }
 </script>
