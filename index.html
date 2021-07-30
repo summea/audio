@@ -99,6 +99,9 @@ function getCurrentSongTime() {
         secondsWithPadding = "0" + currentAudioTimePieces.seconds;
     }
     currentAudioTimeBox.innerHTML = minutesWithPadding+":"+secondsWithPadding;
+}
+
+function getSongLength() {
     currentAudioTimeLength = audioPlayer.duration;
     audioPlayerSlider.max = currentAudioTimeLength;
     currentAudioTimeLengthPieces = convertSecToMin(currentAudioTimeLength);
@@ -140,10 +143,12 @@ play.addEventListener('click', event => {
         // ref: https://developers.google.com/web/updates/2017/06/
         //   /play-request-was-interrupted
         playPromise = audioPlayer.play();
-
         // ref: https://developer.mozilla.org/en-US/docs/Web/API
         //   /WindowOrWorkerGlobalScope/setInterval
         timeChecking = setInterval(getCurrentSongTime, 1000);
+        // ref: https://developer.mozilla.org/en-US/docs/Web/API
+        //   /WindowOrWorkerGlobalScope/setTimeout
+        audioLengthChecking = setTimeout(getSongLength, 1000);
     } else {
         audioPlayer.currentTime = currentAudioTime;
         audioState = 'paused';
@@ -183,7 +188,7 @@ function convertSecToMin(seconds) {
     if (result.minutes > 0) {
         // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript
         //   /Reference/Operators/Remainder
-        result.seconds = Math.round(Math.round(seconds) % result.minutes);
+        result.seconds = Math.round(Math.round(seconds) % 60);
     }
     return result; 
 }
@@ -217,6 +222,8 @@ function getNextSong() {
 
 function getClickedSong(event) {
     // Note: the id from the event is actually a string
+    // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
+    //   /Global_Objects/Number
     currentSongIndex = Number.parseInt(event.target.id);
     const clickEvent = new Event('click');
     audioState = 'paused';
