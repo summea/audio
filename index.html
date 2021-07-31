@@ -187,6 +187,7 @@ function getSongLength() {
         secondsLengthWithPadding = "0" + currentAudioTimeLengthPieces.seconds;
     }
     currentAudioTimeLengthBox.innerHTML = minutesLengthWithPadding+":"+secondsLengthWithPadding;
+    return currentAudioTimeLength;
 }
 
 function playbackTimeUpdate(playFromTime) {
@@ -194,10 +195,8 @@ function playbackTimeUpdate(playFromTime) {
     //   /play-request-was-interrupted
     if (playPromise !== undefined) {
         playPromise.then(_ => {
-            audioPlayer.pause();
             audioPlayerSlider.value = playFromTime;
             audioPlayer.currentTime = playFromTime;
-            playPromise = audioPlayer.play();
         })
         .catch(error => {
         });
@@ -212,16 +211,12 @@ play.addEventListener('click', event => {
     if (audioState === 'stopped' || audioState === 'paused') {
         audioPlayer.currentTime = currentAudioTime;
         audioState = 'playing';
-        //audioPlayer.play();
         // ref: https://developers.google.com/web/updates/2017/06/
         //   /play-request-was-interrupted
         playPromise = audioPlayer.play();
         // ref: https://developer.mozilla.org/en-US/docs/Web/API
         //   /WindowOrWorkerGlobalScope/setInterval
         timeChecking = setInterval(getCurrentSongTime, 1000);
-        // ref: https://developer.mozilla.org/en-US/docs/Web/API
-        //   /WindowOrWorkerGlobalScope/setTimeout
-        audioLengthChecking = setTimeout(getSongLength, 1200);
     } else {
         audioPlayer.currentTime = currentAudioTime;
         audioState = 'paused';
@@ -229,6 +224,13 @@ play.addEventListener('click', event => {
         clearInterval(timeChecking);
     }
     audioStateBox.innerHTML = audioState;
+});
+
+// Get length of current song once song can be played without buffering
+// ref: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
+//   /canplaythrough_event
+audioPlayer.addEventListener('canplaythrough', event => {
+    getSongLength();
 });
 
 audioPlayer.addEventListener('ended', event => {
