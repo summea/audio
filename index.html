@@ -1,8 +1,66 @@
+<!-- ref: https://getbootstrap.com/docs/5.0/getting-started/introduction/ -->
+<!doctype html>
 <html>
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Audio</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<style>
+#audioPlayerSlider {
+  width: 100%;
+}
+
+.audioContainer {
+  border: 1px solid #777;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.audioNextButtonBox {
+  justify-content: right;
+  width: 24px;
+}
+
+/* ref: https://www.w3.org/Style/Examples/007/center.en.html */
+/* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
+.audioPlayButtonBox {
+  flex: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.audioPrevButtonBox {
+  justify-content: left;
+  width: 24px;
+}
+
+.audioTimePlayed {
+  float: left;
+}
+
+.audioLength {
+  float: right;
+}
+
+.container {
+  max-width: 500px;
+}
+
+.control {
+  color: #000;
+}
+
+.controlBox {
+  display: flex;
+  flex-direction: row;
+}
+</style>
 </head>
 <body>
+<div class="container">
+<div class="audioContainer">
 <!-- ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio -->
 <audio id="audioPlayer" src="">
 Your browser does not support the <code>audio</code> element.
@@ -15,17 +73,32 @@ Your browser does not support the <code>audio</code> element.
     value="0"
     step="1"
     oninput="playbackTimeUpdate(value)" />
-<button id="play">Play</button>
-<a href="#" id="prev">&lt; Prev</a>
+<div class="controlBox">
+<div class="audioPrevButtonBox">
+<a href="#" id="prev" class="control audioPrevButton"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+</svg></a></div>
+<div class="audioPlayButtonBox">
+<a href="#" id="play" class="control audioPlayButton"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+  <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+</svg></a>
+</div>
+<div class="audioNextButtonBox">
+<a href="#" id="next" class="control audioNextButton"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+</svg></a>
+</div>
+</div>
+<div id="currentAudioTimeBox" class="audioTimePlayed"></div>
 &nbsp;&nbsp;&nbsp;
-<a href="#" id="next">Next &gt;</a>
+<div id="currentAudioTimeLengthBox" class="audioLength"></div>
+</div>
 <br /><br />
 Audio State: <div id="audioStateBox"></div><br />
 Current Audio: <div id="currentAudioStateBox"></div><br />
-Current Audio Time: <div id="currentAudioTimeBox"></div><br />
-Current Audio Time Length: <div id="currentAudioTimeLengthBox"></div><br />
 <div id="songList">
   <ul></ul>
+</div>
 </div>
 <script>
 let currentSongIndex = 0;
@@ -55,13 +128,13 @@ window.onload = function() {
                 link.href = song.url;
                 link.className = 'song';
                 link.append(linkText);
-                li.append(link);
-                li.addEventListener('click', event => {
+                link.addEventListener('click', event => {
                     event.preventDefault();
                     getClickedSong(event);
                     //audioPlayer.play();
                     //currentAudioStateBox.innerHTML = songs[currentSongIndex].name;
                 });
+                li.append(link);
                 songList.querySelector('ul').append(li);
                 i++;
             });
@@ -148,7 +221,7 @@ play.addEventListener('click', event => {
         timeChecking = setInterval(getCurrentSongTime, 1000);
         // ref: https://developer.mozilla.org/en-US/docs/Web/API
         //   /WindowOrWorkerGlobalScope/setTimeout
-        audioLengthChecking = setTimeout(getSongLength, 1000);
+        audioLengthChecking = setTimeout(getSongLength, 1200);
     } else {
         audioPlayer.currentTime = currentAudioTime;
         audioState = 'paused';
