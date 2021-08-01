@@ -4,6 +4,7 @@ let currentSongIndex = 0;
 let songs = [];
 let albumList = document.getElementById('albumList');
 let songList = document.getElementById('songList');
+let albumListOpen = false;
 
 let data = [];
 
@@ -24,7 +25,6 @@ window.onload = function() {
       albums = data['albums'];
       let i = 0;
       albums.forEach(album => {
-      console.log(i);
         let li = document.createElement('li');
         let link = document.createElement('a');
         let linkText = document.createTextNode(album.name);
@@ -106,6 +106,9 @@ function playbackTimeUpdate(playFromTime) {
 
 // ref: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
 play.addEventListener('click', event => {
+  if (!albumListOpen) {
+    return false;
+  }
   let timeChecking;
   audioPlayer.src = songs[currentSongIndex].url;
   if (audioState === 'stopped' || audioState === 'paused') {
@@ -204,8 +207,7 @@ function getClickedSong(event) {
 }
 
 function openAlbum(event, albumId) {
-  console.log(albumId);
-  console.log(data);
+  albumListOpen = true;
   songs = data["albums"][albumId]['songs'];
   songList.innerHTML = '<ul></ul>';
   let i = 0;
