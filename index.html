@@ -42,6 +42,21 @@
   width: 24px;
 }
 
+.controlBoxDetails {
+  display: flex;
+  flex-direction: row;
+}
+
+.audioRandomButtonBox {
+  flex: auto;
+  text-align: center;
+}
+
+.audioRepeatOneButtonBox {
+  flex: auto;
+  text-align: center;
+}
+
 .audioTimePlayed {
   float: left;
 }
@@ -62,6 +77,22 @@
 .controlBox {
   display: flex;
   flex-direction: row;
+}
+
+.randomDisabled {
+  color: #000;
+}
+
+.randomEnabled {
+  color: #f00;
+}
+
+.repeatOneDisabled {
+  color: #000;
+}
+
+.repeatOneEnabled {
+  color: #f00;
 }
 </style>
 </head>
@@ -97,9 +128,17 @@ Your browser does not support the <code>audio</code> element.
 </svg></a>
 </div>
 </div>
+<div class="controlBoxDetails">
 <div id="currentAudioTimeBox" class="audioTimePlayed"></div>
 &nbsp;&nbsp;&nbsp;
+<div class="audioRandomButtonBox">
+<a href="#" id="random" class="control audioRandomButton">Random</a>
+</div>
+<div class="audioRepeatOneButtonBox">
+<a href="#" id="repeatOne" class="control audioRepeatOneButton">Repeat One</a>
+</div>
 <div id="currentAudioTimeLengthBox" class="audioLength"></div>
+</div>
 </div>
 <br />
 Album List<br />
