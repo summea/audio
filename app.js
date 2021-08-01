@@ -2,12 +2,15 @@
 //   /JavaScript
 let currentSongIndex = 0;
 let songs = [];
+let albumList = document.getElementById('albumList');
 let songList = document.getElementById('songList');
+
+let data = [];
 
 window.onload = function() {
   // Get song data
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/Request
-  const request = new Request('songs.json');
+  const request = new Request('albums.json');
   fetch(request)
     .then(response => {
       if (response.status === 200) {
@@ -17,22 +20,24 @@ window.onload = function() {
       }
     })
     .then(response => {
-      songs = response['songs'];
+      data = response;
+      albums = data['albums'];
       let i = 0;
-      songs.forEach(song => {
+      albums.forEach(album => {
+      console.log(i);
         let li = document.createElement('li');
         let link = document.createElement('a');
-        let linkText = document.createTextNode(song.name);
+        let linkText = document.createTextNode(album.name);
         link.id = i;
-        link.href = song.url;
-        link.className = 'song';
+        link.href = album.url;
+        link.className = 'album';
         link.append(linkText);
         link.addEventListener('click', event => {
           event.preventDefault();
-          getClickedSong(event);
+          openAlbum(event, link.id);
         });
         li.append(link);
-        songList.querySelector('ul').append(li);
+        albumList.querySelector('ul').append(li);
         i++;
       });
     })
@@ -42,10 +47,9 @@ window.onload = function() {
 }
 
 let audioState = 'stopped';
-let audioStateBox = document.getElementById('audioStateBox');
 let currentAudioTime = 0;
 let currentAudioTimeLength = 0;
-let currentAudioStateBox = document.getElementById('currentAudioStateBox');
+let currentAudioTitle = document.getElementById('currentAudioTitle');
 let currentAudioTimeBox = document.getElementById('currentAudioTimeBox');
 let currentAudioTimeLengthBox = document.getElementById('currentAudioTimeLengthBox');
 let audioPlayer = document.getElementById('audioPlayer');
@@ -104,7 +108,6 @@ function playbackTimeUpdate(playFromTime) {
 play.addEventListener('click', event => {
   let timeChecking;
   audioPlayer.src = songs[currentSongIndex].url;
-  currentAudioStateBox.innerHTML = songs[currentSongIndex].name;
   if (audioState === 'stopped' || audioState === 'paused') {
     audioPlayer.currentTime = currentAudioTime;
     audioState = 'playing';
@@ -120,7 +123,7 @@ play.addEventListener('click', event => {
     audioPlayer.pause();
     clearInterval(timeChecking);
   }
-  audioStateBox.innerHTML = audioState;
+  currentAudioTitle.innerHTML = songs[currentSongIndex].name;
 });
 
 // Get length of current song once song can be played without buffering
@@ -133,19 +136,16 @@ audioPlayer.addEventListener('canplaythrough', event => {
 audioPlayer.addEventListener('ended', event => {
   getNextSong();
   audioPlayer.play();
-  currentAudioStateBox.innerHTML = songs[currentSongIndex].name;
 });
 
 prev.addEventListener('click', event => {
   getPrevSong();
   audioPlayer.play();
-  currentAudioStateBox.innerHTML = songs[currentSongIndex].name;
 });
 
 next.addEventListener('click', event => {
   getNextSong();
   audioPlayer.play();
-  currentAudioStateBox.innerHTML = songs[currentSongIndex].name;
 });
 
 function convertSecToMin(seconds) {
@@ -201,4 +201,28 @@ function getClickedSong(event) {
   audioState = 'paused';
   currentAudioTime = 0;
   play.dispatchEvent(clickEvent);
+}
+
+function openAlbum(event, albumId) {
+  console.log(albumId);
+  console.log(data);
+  songs = data["albums"][albumId]['songs'];
+  songList.innerHTML = '<ul></ul>';
+  let i = 0;
+  songs.forEach(song => {
+    let li = document.createElement('li');
+    let link = document.createElement('a');
+    let linkText = document.createTextNode(song.name);
+    link.id = i;
+    link.href = song.url;
+    link.className = 'song';
+    link.append(linkText);
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      getClickedSong(event);
+    });
+    li.append(link);
+    songList.querySelector('ul').append(li);
+    i++;
+  });
 }

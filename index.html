@@ -6,9 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Audio</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
 <style>
 #audioPlayerSlider {
   width: 100%;
+}
+
+#currentAudioTitle {
+  flex: auto;
+  text-align: center;
 }
 
 .audioContainer {
@@ -45,6 +51,7 @@
 }
 
 .container {
+  font-family: 'Inconsolata', Arial, sans-serif;
   max-width: 500px;
 }
 
@@ -66,6 +73,7 @@
 Your browser does not support the <code>audio</code> element.
 </audio><br />
 <!-- ref: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_slider_role -->
+<div id="currentAudioTitle"></div>
 <input type="range"
     id="audioPlayerSlider"
     min="0"
@@ -93,9 +101,12 @@ Your browser does not support the <code>audio</code> element.
 &nbsp;&nbsp;&nbsp;
 <div id="currentAudioTimeLengthBox" class="audioLength"></div>
 </div>
-<br /><br />
-Audio State: <div id="audioStateBox"></div><br />
-Current Audio: <div id="currentAudioStateBox"></div><br />
+<br />
+Album List<br />
+<div id="albumList">
+  <ul></ul>
+</div>
+Song List<br />
 <div id="songList">
   <ul></ul>
 </div>
