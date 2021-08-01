@@ -5,8 +5,10 @@ let songs = [];
 let albumList = document.getElementById('albumList');
 let songList = document.getElementById('songList');
 let albumListOpen = false;
-
+let playButton = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16"><path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/></svg>';
+let pauseButton = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16"><path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/></svg>';
 let data = [];
+let currentAudioLoaded = false;
 
 window.onload = function() {
   // Get song data
@@ -109,8 +111,13 @@ play.addEventListener('click', event => {
   if (!albumListOpen) {
     return false;
   }
-  let timeChecking;
   audioPlayer.src = songs[currentSongIndex].url;
+  if (!currentAudioLoaded) {
+    currentAudioTitle.innerHTML = songs[currentSongIndex].name
+        + '<br>' + 'Loading audio...';
+    return false;
+  }
+  let timeChecking;
   if (audioState === 'stopped' || audioState === 'paused') {
     audioPlayer.currentTime = currentAudioTime;
     audioState = 'playing';
@@ -120,11 +127,13 @@ play.addEventListener('click', event => {
     // ref: https://developer.mozilla.org/en-US/docs/Web/API
     //   /WindowOrWorkerGlobalScope/setInterval
     timeChecking = setInterval(getCurrentSongTime, 1000);
+    play.innerHTML = playButton;
   } else {
     audioPlayer.currentTime = currentAudioTime;
     audioState = 'paused';
     audioPlayer.pause();
     clearInterval(timeChecking);
+    play.innerHTML = pauseButton;
   }
   currentAudioTitle.innerHTML = songs[currentSongIndex].name;
 });
@@ -133,7 +142,15 @@ play.addEventListener('click', event => {
 // ref: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
 //   /canplaythrough_event
 audioPlayer.addEventListener('canplaythrough', event => {
+  if (currentAudioLoaded) {
+    return true;
+  }
   getSongLength();
+  currentAudioLoaded = true;
+  const clickEvent = new Event('click');
+  audioState = 'paused';
+  currentAudioTime = 0;
+  play.dispatchEvent(clickEvent);
 });
 
 audioPlayer.addEventListener('ended', event => {
