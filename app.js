@@ -55,8 +55,10 @@ let audioState = 'stopped';
 let currentAudioTime = 0;
 let currentAudioTimeLength = 0;
 let currentAudioTitle = document.getElementById('currentAudioTitle');
+let currentAudioTitleValue = '';
 let currentAudioTimeBox = document.getElementById('currentAudioTimeBox');
 let currentAudioTimeLengthBox = document.getElementById('currentAudioTimeLengthBox');
+let currentAudioLoading = false; 
 let audioPlayer = document.getElementById('audioPlayer');
 let audioPlayerSlider = document.getElementById('audioPlayerSlider');
 let play = document.getElementById('play');
@@ -64,6 +66,7 @@ let prev = document.getElementById('prev');
 let next = document.getElementById('next');
 let random = document.getElementById('random');
 let repeatOne = document.getElementById('repeatOne');
+let firstPlay = true;
 
 let playPromise;
 
@@ -116,20 +119,21 @@ play.addEventListener('click', event => {
   if (!albumListOpen && !randomButtonEnabled) {
     return false;
   }
-  if (randomButtonEnabled) {
-    randomSong = getRandomSong();
-    audioPlayer.src = data['albums'][randomSong['albumId']]['songs'][randomSong['songId']].url;
-    currentAudioTitle.innerHTML = data['albums'][randomSong['albumId']]['songs'][randomSong['songId']].name;
-  } else {
-    audioPlayer.src = songs[currentSongIndex].url;
-    currentAudioTitle.innerHTML = songs[currentSongIndex].name;
+  if (firstPlay) {
+    if (randomButtonEnabled) {
+      loadRandomSong();
+    } else {
+      //loadClickedSong(event); 
+    }
+    firstPlay = false;
   }
-  // TODO: Might need to check this; random songs might not get played as expected
   if (!currentAudioLoaded) {
-    currentAudioTitle.innerHTML = songs[currentSongIndex].name
+    currentAudioLoading = true;
+    currentAudioTitle.innerHTML = currentAudioTitleValue
         + '<br>' + 'Loading audio...';
     return false;
   }
+  currentAudioTitle.innerHTML = currentAudioTitleValue;
   let timeChecking;
   if (audioState === 'stopped' || audioState === 'paused') {
     audioPlayer.currentTime = currentAudioTime;
@@ -150,17 +154,50 @@ play.addEventListener('click', event => {
   }
 });
 
+function loadRandomSong() {
+  randomSong = getRandomSong();
+  audioPlayer.src = data['albums'][randomSong['albumId']]['songs'][randomSong['songId']].url;
+  currentAudioTitleValue = data['albums'][randomSong['albumId']]['songs'][randomSong['songId']].name;
+  currentAudioTitle.innerHTML = currentAudioTitleValue;
+}
+
+function loadNextSong() {
+  getNextSong();
+  audioPlayer.src = songs[currentSongIndex].url;
+  currentAudioTitleValue = songs[currentSongIndex].name;
+  currentAudioTitle.innerHTML = currentAudioTitleValue;
+}
+
+function loadPrevSong() {
+  getPrevSong();
+  audioPlayer.src = songs[currentSongIndex].url;
+  currentAudioTitleValue = songs[currentSongIndex].name;
+  currentAudioTitle.innerHTML = currentAudioTitleValue;
+}
+
+function loadClickedSong(event) {
+  console.log(event.target.id);
+  songIdPieces = event.target.id.split('_');
+  // Note: the id from the event is actually a string
+  // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
+  //   /Global_Objects/Number
+  currentSongIndex = Number.parseInt(songIdPieces[1]);
+  audioPlayer.src = songs[currentSongIndex].url;
+  currentAudioTitleValue = songs[currentSongIndex].name;
+  currentAudioTitle.innerHTML = currentAudioTitleValue;
+}
+
 // Get length of current song once song can be played without buffering
 // ref: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
 //   /canplaythrough_event
 audioPlayer.addEventListener('canplaythrough', event => {
   if (currentAudioLoaded) {
+    currentAudioLoading = false;
     return true;
   }
   getSongLength();
   currentAudioLoaded = true;
   const clickEvent = new Event('click');
-  audioState = 'paused';
   currentAudioTime = 0;
   play.dispatchEvent(clickEvent);
 });
@@ -179,14 +216,33 @@ audioPlayer.addEventListener('ended', event => {
 
 prev.addEventListener('click', event => {
   event.preventDefault();
-  getPrevSong();
-  audioPlayer.play();
+  if (repeatOneButtonEnabled) {
+    getSameSong();
+  } else if (randomButtonEnabled) {
+    audioState = 'stopped';
+    loadRandomSong();
+  } else {
+    loadPrevSong();
+  }
+  const clickEvent = new Event('click');
+  currentAudioTime = 0;
+  play.dispatchEvent(clickEvent);
 });
 
 next.addEventListener('click', event => {
   event.preventDefault();
-  getNextSong();
-  audioPlayer.play();
+
+  if (repeatOneButtonEnabled) {
+    getSameSong();
+  } else if (randomButtonEnabled) {
+    audioState = 'stopped';
+    loadRandomSong();
+  } else {
+    loadNextSong();
+  }
+  const clickEvent = new Event('click');
+  currentAudioTime = 0;
+  play.dispatchEvent(clickEvent);
 });
 
 random.addEventListener('click', event => {
@@ -231,18 +287,16 @@ function convertSecToMin(seconds) {
 }
 
 function getPrevSong() {
-  if ((currentSongIndex - 1) > 0) {
+  if ((currentSongIndex - 1) >= 0) {
     currentSongIndex--;
   } else {
     currentSongIndex = 0;
-    if ((songs.length - 1) > 0) {
+    if ((songs.length - 1) >= 0) {
         currentSongIndex = songs.length - 1;
     }
   }
   currentAudioTime = 0;
-  const clickEvent = new Event('click');
   audioState = 'paused';
-  play.dispatchEvent(clickEvent);
 }
 
 function getNextSong() {
@@ -252,9 +306,7 @@ function getNextSong() {
     currentSongIndex = 0;
   }
   currentAudioTime = 0;
-  const clickEvent = new Event('click');
   audioState = 'paused';
-  play.dispatchEvent(clickEvent);
 }
 
 function getSameSong() {
@@ -270,6 +322,9 @@ function getClickedSong(event) {
   // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
   //   /Global_Objects/Number
   currentSongIndex = Number.parseInt(songIdPieces[1]);
+  audioPlayer.src = songs[currentSongIndex].url;
+  currentAudioTitleValue = songs[currentSongIndex].name;
+  currentAudioTitle.innerHTML = currentAudioTitleValue;
   const clickEvent = new Event('click');
   audioState = 'paused';
   currentAudioTime = 0;
