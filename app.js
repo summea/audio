@@ -192,10 +192,10 @@ function loadClickedSong(event) {
 //   /canplaythrough_event
 audioPlayer.addEventListener('canplaythrough', event => {
   if (currentAudioLoaded) {
+    getSongLength();
     currentAudioLoading = false;
     return true;
   }
-  getSongLength();
   currentAudioLoaded = true;
   const clickEvent = new Event('click');
   currentAudioTime = 0;
