@@ -12,6 +12,8 @@ let data = [];
 let currentAudioLoaded = false;
 let randomButtonEnabled = false;
 let repeatOneButtonEnabled = false;
+let currentAlbum = 0;
+let currentSong = 0;
 
 window.onload = function() {
   // Get song data
@@ -156,9 +158,15 @@ play.addEventListener('click', event => {
 
 function loadRandomSong() {
   randomSong = getRandomSong();
+  currentAlbum = randomSong['albumId'];
+  currentSong = randomSong['songId'];
   audioPlayer.src = data['albums'][randomSong['albumId']]['songs'][randomSong['songId']].url;
   currentAudioTitleValue = data['albums'][randomSong['albumId']]['songs'][randomSong['songId']].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
+}
+
+function loadSameSong() {
+  getSameSong();
 }
 
 function loadNextSong() {
@@ -176,7 +184,6 @@ function loadPrevSong() {
 }
 
 function loadClickedSong(event) {
-  console.log(event.target.id);
   songIdPieces = event.target.id.split('_');
   // Note: the id from the event is actually a string
   // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
@@ -205,11 +212,11 @@ audioPlayer.addEventListener('canplaythrough', event => {
 audioPlayer.addEventListener('ended', event => {
   event.preventDefault();
   if (repeatOneButtonEnabled) {
-    getSameSong();    
+    loadSameSong();
   } else if (randomButtonEnabled) {
-    getRandomSong();
+    loadRandomSong();
   } else {
-    getNextSong();
+    loadNextSong();
   }
   audioPlayer.play();
 });
@@ -217,7 +224,7 @@ audioPlayer.addEventListener('ended', event => {
 prev.addEventListener('click', event => {
   event.preventDefault();
   if (repeatOneButtonEnabled) {
-    getSameSong();
+    loadSameSong();
   } else if (randomButtonEnabled) {
     audioState = 'stopped';
     loadRandomSong();
@@ -233,7 +240,7 @@ next.addEventListener('click', event => {
   event.preventDefault();
 
   if (repeatOneButtonEnabled) {
-    getSameSong();
+    loadSameSong();
   } else if (randomButtonEnabled) {
     audioState = 'stopped';
     loadRandomSong();
@@ -287,6 +294,7 @@ function convertSecToMin(seconds) {
 }
 
 function getPrevSong() {
+
   if ((currentSongIndex - 1) >= 0) {
     currentSongIndex--;
   } else {
@@ -311,14 +319,13 @@ function getNextSong() {
 
 function getSameSong() {
   currentAudioTime = 0;
-  const clickEvent = new Event('click');
   audioState = 'paused';
-  play.dispatchEvent(clickEvent);
 }
 
 function getClickedSong(event) {
   songIdPieces = event.target.id.split('_');
   // Note: the id from the event is actually a string
+    loadSameSong();
   // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
   //   /Global_Objects/Number
   currentSongIndex = Number.parseInt(songIdPieces[1]);
@@ -362,12 +369,5 @@ function getRandomSong() {
   let randomAlbumId = Math.floor(Math.random() * totalAlbums);
   let totalSongsOnAlbum = data['albums'][randomAlbumId]['songs'].length;
   randomSongId = Math.floor(Math.random() * totalSongsOnAlbum);
-  //const clickEvent = new Event('click');
-  /*
-  let focusAlbum = document.getElementById('album_' + randomAlbumId);
-  focusAlbum.dispatchEvent(clickEvent);
-  let focusSong = document.getElementById('song_' + randomSongId);
-  focusSong.dispatchEvent(clickEvent);
-  */
   return {'albumId': randomAlbumId, 'songId': randomSongId};
 }
