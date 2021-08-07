@@ -5,6 +5,9 @@ A place to keep track of changes for this audio project.
 ### Added
 - Feature to use album song numbers for list of songs displayed for a given album (Issue #49)
 
+### Removed
+- Old `songs.json` data file
+
 ## [1.1.0] - 2021-08-07
 ### Added
 - Feature to play first song of first album if no album selected and random mode not on (Issue #48)
