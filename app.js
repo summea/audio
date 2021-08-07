@@ -118,14 +118,11 @@ function playbackTimeUpdate(playFromTime) {
 
 // ref: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
 play.addEventListener('click', event => {
-  if (!albumListOpen && !randomButtonEnabled) {
-    return false;
-  }
   if (firstPlay) {
     if (randomButtonEnabled) {
       loadRandomSong();
     } else {
-      //loadClickedSong(event); 
+      loadFirstAvailableSong(event); 
     }
     firstPlay = false;
   }
@@ -146,20 +143,37 @@ play.addEventListener('click', event => {
     // ref: https://developer.mozilla.org/en-US/docs/Web/API
     //   /WindowOrWorkerGlobalScope/setInterval
     timeChecking = setInterval(getCurrentSongTime, 1000);
-    play.innerHTML = playButton;
+    // ref: Example from Chrome audio player
+    play.innerHTML = pauseButton;
   } else {
     audioPlayer.currentTime = currentAudioTime;
     audioState = 'paused';
     audioPlayer.pause();
     clearInterval(timeChecking);
-    play.innerHTML = pauseButton;
+    play.innerHTML = playButton;
   }
 });
+
+// ref: https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event
+document.addEventListener('keydown', getKeyboardKey);
+
+function getKeyboardKey(event) {
+  if (event.code === 'ArrowLeft') {
+    const clickEvent = new Event('click');
+    currentAudioTime = 0;
+    prev.dispatchEvent(clickEvent);    
+  } else if (event.code === 'ArrowRight') {
+    const clickEvent = new Event('click');
+    currentAudioTime = 0;
+    next.dispatchEvent(clickEvent);    
+  }
+}
 
 function loadRandomSong() {
   randomSong = getRandomSong();
   currentAlbum = randomSong['albumId'];
   currentSong = randomSong['songId'];
+  currentSongIndex = currentSong;
   audioPlayer.src = data['albums'][randomSong['albumId']]['songs'][randomSong['songId']].url;
   currentAudioTitleValue = data['albums'][randomSong['albumId']]['songs'][randomSong['songId']].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
@@ -171,15 +185,24 @@ function loadSameSong() {
 
 function loadNextSong() {
   getNextSong();
-  audioPlayer.src = songs[currentSongIndex].url;
-  currentAudioTitleValue = songs[currentSongIndex].name;
+  audioPlayer.src = data['albums'][currentAlbum]['songs'][currentSongIndex].url;
+  currentAudioTitleValue = data['albums'][currentAlbum]['songs'][currentSongIndex].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
 }
 
 function loadPrevSong() {
   getPrevSong();
-  audioPlayer.src = songs[currentSongIndex].url;
-  currentAudioTitleValue = songs[currentSongIndex].name;
+  audioPlayer.src = data['albums'][currentAlbum]['songs'][currentSongIndex].url;
+  currentAudioTitleValue = data['albums'][currentAlbum]['songs'][currentSongIndex].name;
+  currentAudioTitle.innerHTML = currentAudioTitleValue;
+}
+
+function loadFirstAvailableSong() {
+  currentAlbum = 0;
+  currentSong = 0;
+  currentSongIndex = 0;
+  audioPlayer.src = data['albums'][currentAlbum]['songs'][currentSongIndex].url;
+  currentAudioTitleValue = data['albums'][currentAlbum]['songs'][currentSongIndex].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
 }
 
@@ -299,8 +322,8 @@ function getPrevSong() {
     currentSongIndex--;
   } else {
     currentSongIndex = 0;
-    if ((songs.length - 1) >= 0) {
-        currentSongIndex = songs.length - 1;
+    if ((data['albums'][currentAlbum]['songs'].length- 1) >= 0) {
+        currentSongIndex = data['albums'][currentAlbum]['songs'].length - 1;
     }
   }
   currentAudioTime = 0;
@@ -308,7 +331,7 @@ function getPrevSong() {
 }
 
 function getNextSong() {
-  if ((currentSongIndex + 1) < songs.length) {
+  if ((currentSongIndex + 1) < data['albums'][currentAlbum]['songs'].length) {
     currentSongIndex++;
   } else {
     currentSongIndex = 0;
@@ -342,7 +365,7 @@ function openAlbum(event, albumId) {
   albumListOpen = true;
   albumIdPieces = albumId.split('_');
   songs = data["albums"][albumIdPieces[1]]['songs'];
-  songList.innerHTML = '<ul></ul>';
+  songList.innerHTML = '<ol></ol>';
   let i = 0;
   songs.forEach(song => {
     let li = document.createElement('li');
@@ -357,7 +380,7 @@ function openAlbum(event, albumId) {
       getClickedSong(event);
     });
     li.append(link);
-    songList.querySelector('ul').append(li);
+    songList.querySelector('ol').append(li);
     i++;
   });
 }
