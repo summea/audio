@@ -379,6 +379,7 @@ function openAlbum(event, albumId) {
       event.preventDefault();
       getClickedSong(event);
     });
+    li.value = song.albumSongNumber;
     li.append(link);
     songList.querySelector('ol').append(li);
     i++;
