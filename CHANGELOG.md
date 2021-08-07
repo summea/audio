@@ -1,6 +1,12 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
+## [1.1.0] - 2021-08-07
+### Added
+- Feature to play first song of first album if no album selected and random mode not on (Issue #48)
+- Features to be able to use right and left arrow keys to act as next and prev actions (Issues #46, #47)
+- Feature to play next song on album if starting with random mode on and then turning random mode off and clicking/pushing next (Issue #43)
+
 ## [1.0.0] - 2021-08-05
 ### Added
 - Repeat-one song feature (Issue #42)
