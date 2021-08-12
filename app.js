@@ -18,7 +18,7 @@ let currentSong = 0;
 window.onload = function() {
   // Get song data
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/Request
-  const request = new Request('albums.json');
+  const request = new Request('audio/albums.json');
   fetch(request)
     .then(response => {
       if (response.status === 200) {
@@ -91,11 +91,17 @@ function getSongLength() {
   currentAudioTimeLength = audioPlayer.duration;
   audioPlayerSlider.max = currentAudioTimeLength;
   currentAudioTimeLengthPieces = convertSecToMin(currentAudioTimeLength);
-  let minutesLengthWithPadding = currentAudioTimeLengthPieces.minutes;
+  let minutesLengthWithPadding = '00';
+  if (Number.isInteger(currentAudioTimeLengthPieces.minutes)) {
+    minutesLengthWithPadding = currentAudioTimeLengthPieces.minutes;
+  }
   if (currentAudioTimeLengthPieces.minutes < 10) {
     minutesLengthWithPadding = "0" + currentAudioTimeLengthPieces.minutes;
   }
-  let secondsLengthWithPadding = currentAudioTimeLengthPieces.seconds;
+  let secondsLengthWithPadding = '00';
+  if (Number.isInteger(currentAudioTimeLengthPieces.seconds)) {
+    secondsLengthWithPadding = currentAudioTimeLengthPieces.seconds;
+  }
   if (currentAudioTimeLengthPieces.seconds < 10) {
     secondsLengthWithPadding = "0" + currentAudioTimeLengthPieces.seconds;
   }
@@ -134,6 +140,8 @@ play.addEventListener('click', event => {
   }
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   let timeChecking;
+  // In order to get song length of first song (album: 0, song: 0) on mobile
+  getSongLength();
   if (audioState === 'stopped' || audioState === 'paused') {
     audioPlayer.currentTime = currentAudioTime;
     audioState = 'playing';
@@ -177,10 +185,16 @@ function loadRandomSong() {
   audioPlayer.src = data['albums'][randomSong['albumId']]['songs'][randomSong['songId']].url;
   currentAudioTitleValue = data['albums'][randomSong['albumId']]['songs'][randomSong['songId']].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
+  // ref: https://stackoverflow.com/a/49794011/1167750
+  audioPlayer.load();
+  getSongLength();
 }
 
 function loadSameSong() {
   getSameSong();
+  // ref: https://stackoverflow.com/a/49794011/1167750
+  audioPlayer.load();
+  getSongLength();
 }
 
 function loadNextSong() {
@@ -188,6 +202,9 @@ function loadNextSong() {
   audioPlayer.src = data['albums'][currentAlbum]['songs'][currentSongIndex].url;
   currentAudioTitleValue = data['albums'][currentAlbum]['songs'][currentSongIndex].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
+  // ref: https://stackoverflow.com/a/49794011/1167750
+  audioPlayer.load();
+  getSongLength();
 }
 
 function loadPrevSong() {
@@ -195,6 +212,9 @@ function loadPrevSong() {
   audioPlayer.src = data['albums'][currentAlbum]['songs'][currentSongIndex].url;
   currentAudioTitleValue = data['albums'][currentAlbum]['songs'][currentSongIndex].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
+  // ref: https://stackoverflow.com/a/49794011/1167750
+  audioPlayer.load();
+  getSongLength();
 }
 
 function loadFirstAvailableSong() {
@@ -204,6 +224,9 @@ function loadFirstAvailableSong() {
   audioPlayer.src = data['albums'][currentAlbum]['songs'][currentSongIndex].url;
   currentAudioTitleValue = data['albums'][currentAlbum]['songs'][currentSongIndex].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
+  // ref: https://stackoverflow.com/a/49794011/1167750
+  audioPlayer.load();
+  getSongLength();
 }
 
 function loadClickedSong(event) {
@@ -215,6 +238,9 @@ function loadClickedSong(event) {
   audioPlayer.src = songs[currentSongIndex].url;
   currentAudioTitleValue = songs[currentSongIndex].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
+  // ref: https://stackoverflow.com/a/49794011/1167750
+  audioPlayer.load();
+  getSongLength();
 }
 
 // Get length of current song once song can be played without buffering
