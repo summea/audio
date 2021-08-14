@@ -1,5 +1,32 @@
 {"albums": [
     {
+        "name": "Before the Harvest",
+        "songs": [
+            {"name": "Air Balloon", "url": "https://music.andrewsummers.com/albums/beforetheharvest/01%20Air%20Balloon.mp3", "albumSongNumber": 1},
+            {"name": "You and Beauty", "url": "https://music.andrewsummers.com/albums/beforetheharvest/02%20You%20and%20Beauty.mp3", "albumSongNumber": 2},
+            {"name": "Dragonfly Skies", "url": "https://music.andrewsummers.com/albums/beforetheharvest/03%20Dragonfly%20Skies.mp3", "albumSongNumber": 3},
+            {"name": "Slow Time", "url": "https://music.andrewsummers.com/albums/beforetheharvest/04%20Slow%20Time.mp3", "albumSongNumber": 4},
+            {"name": "Lay It Down", "url": "https://music.andrewsummers.com/albums/beforetheharvest/05%20Lay%20It%20Down.mp3", "albumSongNumber": 5},
+            {"name": "Sunshine Day", "url": "https://music.andrewsummers.com/albums/beforetheharvest/06%20Sunshine%20Day.mp3", "albumSongNumber": 6},
+            {"name": "More of You", "url": "https://music.andrewsummers.com/albums/beforetheharvest/07%20More%20of%20You.mp3", "albumSongNumber": 7},
+            {"name": "Harvest Moon", "url": "https://music.andrewsummers.com/albums/beforetheharvest/08%20Harvest%20Moon.mp3", "albumSongNumber": 8}
+        ]
+    },
+    {
+        "name": "Still Waters",
+        "songs": [
+            {"name": "Arizona", "url": "https://music.andrewsummers.com/albums/stillwaters/01%20Arizona.mp3", "albumSongNumber": 1},
+            {"name": "Mad Sea", "url": "https://music.andrewsummers.com/albums/stillwaters/02%20Mad%20Sea.mp3", "albumSongNumber": 2},
+            {"name": "You Make Things Beautiful", "url": "https://music.andrewsummers.com/albums/stillwaters/03%20You%20Make%20Things%20Beautiful.mp3", "albumSongNumber": 3},
+            {"name": "Young Faith", "url": "https://music.andrewsummers.com/albums/stillwaters/04%20Young%20Faith.mp3", "albumSongNumber": 4},
+            {"name": "Acting Happiness", "url": "https://music.andrewsummers.com/albums/stillwaters/05%20Acting%20Happiness.mp3", "albumSongNumber": 5},
+            {"name": "John the Baptist", "url": "https://music.andrewsummers.com/albums/stillwaters/06%20John%20the%20Baptist.mp3", "albumSongNumber": 6},
+            {"name": "Baptism I: John the Baptist", "url": "https://music.andrewsummers.com/albums/stillwaters/07%20Baptism%20I_%20John%20the%20Baptist.mp3", "albumSongNumber": 7},
+            {"name": "Baptism II: Baptism of Jesus", "url": "https://music.andrewsummers.com/albums/stillwaters/08%20Baptism%20II_%20Baptism%20of%20Jesus.mp3", "albumSongNumber": 8},
+            {"name": "Baptism III: Father and Son", "url": "https://music.andrewsummers.com/albums/stillwaters/09%20Baptism%20III_%20Father%20and%20Son.mp3", "albumSongNumber": 9}
+        ]
+    },
+    {
         "name": "Forward in Time",
         "songs": [
             {"name": "Bumpy Sleigh Ride", "url": "https://music.andrewsummers.com/albums/forwardintime/01%20Bumpy%20Sleigh%20Ride.mp3", "albumSongNumber": 1},
