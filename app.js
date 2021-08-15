@@ -191,7 +191,7 @@ function getKeyboardKey(event) {
 }
 
 function loadRandomSong() {
-  randomSong = getRandomSong();
+  let randomSong = getRandomSong();
   currentAlbum = randomSong["albumId"];
   currentSong = randomSong["songId"];
   currentSongIndex = currentSong;
@@ -432,6 +432,6 @@ function getRandomSong() {
   //   /Global_Objects/Math/random
   let randomAlbumId = Math.floor(Math.random() * totalAlbums);
   let totalSongsOnAlbum = data["albums"][randomAlbumId]["songs"].length;
-  randomSongId = Math.floor(Math.random() * totalSongsOnAlbum);
+  let randomSongId = Math.floor(Math.random() * totalSongsOnAlbum);
   return {"albumId": randomAlbumId, "songId": randomSongId};
 }
