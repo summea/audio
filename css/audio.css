@@ -1,0 +1,104 @@
+#audioPlayerSlider {
+  width: 100%;
+}
+
+#currentAudioTitle {
+  flex: auto;
+  text-align: center;
+}
+
+.audioContainer {
+  border: 1px solid #777;
+  border-radius: 5px;
+  padding: 10px;
+  width: 400px;
+  background-color: #fff;
+  /* ref: Scrapbook2 theme */
+  font-family: 'Inconsolata', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries
+     /Using_media_queries */
+@media (max-width: 500px) {
+  .audioContainer {
+    width: 300px;
+  }
+}
+
+.audioNextButtonBox {
+  justify-content: right;
+  width: 24px;
+}
+
+/* ref: https://www.w3.org/Style/Examples/007/center.en.html */
+/* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
+.audioPlayButtonBox {
+  flex: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.audioPrevButtonBox {
+  justify-content: left;
+  width: 24px;
+}
+
+.controlBoxDetails {
+  display: flex;
+  flex-direction: row;
+}
+
+.audioRandomButtonBox {
+  flex: auto;
+  text-align: center;
+}
+
+.audioRepeatOneButtonBox {
+  flex: auto;
+  text-align: center;
+}
+
+.audioTimePlayed {
+  float: left;
+}
+
+.audioLength {
+  float: right;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  font-family: 'Inconsolata', Arial, sans-serif;
+  max-width: 500px;
+}
+
+.control {
+  color: #000;
+}
+
+.controlBox {
+  display: flex;
+  flex-direction: row;
+}
+
+.randomDisabled {
+  color: #000;
+}
+
+.randomEnabled {
+  color: #f00;
+}
+
+.repeatOneDisabled {
+  color: #000;
+}
+
+.repeatOneEnabled {
+  color: #f00;
+}
