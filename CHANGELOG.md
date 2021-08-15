@@ -4,6 +4,7 @@ A place to keep track of changes for this audio project.
 ## [1.2.1] - 2021-08-14
 ### Fixed
 - Some CSS related issues on mobile web version
+- Some local variable definition issues
 
 ## [1.2.0] - 2021-08-14
 ### Added
