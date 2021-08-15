@@ -1,6 +1,12 @@
-// ref: https://developer.mozilla.org/en-US/docs/MDN/Guidelines/Code_guidelines
+// ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide
+//   /Modules
+import { settings } from "./modules/settings.js";
+
+// ref: https://developer.mozilla.org/en-US/docs/MDN/Guidelines
+//   /Code_guidelines
 //   /JavaScript
 let currentSongIndex = 0;
+let albums = [];
 let songs = [];
 let albumList = document.getElementById("albumList");
 let songList = document.getElementById("songList");
@@ -15,11 +21,35 @@ let repeatOneButtonEnabled = false;
 let currentAlbum = 0;
 let currentSong = 0;
 let userClickedSongFromList = false;
+let audioState = "stopped";
+let currentAudioTime = 0;
+let currentAudioTimeLength = 0;
+let currentAudioTitle = document.getElementById("currentAudioTitle");
+let currentAudioTitleValue = "";
+let currentAudioTimeBox = document.getElementById("currentAudioTimeBox");
+let currentAudioTimeLengthBox = document.getElementById("currentAudioTimeLengthBox");
+let currentAudioLoading = false;
+let audioPlayer = document.getElementById("audioPlayer");
+let audioPlayerSlider = document.getElementById("audioPlayerSlider");
+let play = document.getElementById("play");
+let prev = document.getElementById("prev");
+let next = document.getElementById("next");
+let random = document.getElementById("random");
+let repeatOne = document.getElementById("repeatOne");
+let firstPlay = true;
+let playPromise;
 
-window.onload = function() {
+export function setup() {
+  // ref: https://stackoverflow.com/a/53069733/1167750
+  // ref: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
+  //   /input_event
+  // ref: https://developer.mozilla.org/en-US/docs/Web/API
+  //   /GlobalEventHandlers/oninput
+  audioPlayerSlider.oninput = playbackTimeUpdate;
+
   // Get song data
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/Request
-  const request = new Request("audio/albums.json");
+  const request = new Request(settings["albumsJsonPath"]);
   fetch(request)
     .then(response => {
       if (response.status === 200) {
@@ -54,29 +84,10 @@ window.onload = function() {
     });
 }
 
-let audioState = "stopped";
-let currentAudioTime = 0;
-let currentAudioTimeLength = 0;
-let currentAudioTitle = document.getElementById("currentAudioTitle");
-let currentAudioTitleValue = "";
-let currentAudioTimeBox = document.getElementById("currentAudioTimeBox");
-let currentAudioTimeLengthBox = document.getElementById("currentAudioTimeLengthBox");
-let currentAudioLoading = false; 
-let audioPlayer = document.getElementById("audioPlayer");
-let audioPlayerSlider = document.getElementById("audioPlayerSlider");
-let play = document.getElementById("play");
-let prev = document.getElementById("prev");
-let next = document.getElementById("next");
-let random = document.getElementById("random");
-let repeatOne = document.getElementById("repeatOne");
-let firstPlay = true;
-
-let playPromise;
-
 function getCurrentSongTime() {
   currentAudioTime = audioPlayer.currentTime;
   audioPlayerSlider.value = currentAudioTime;
-  currentAudioTimePieces = convertSecToMin(currentAudioTime);
+  let currentAudioTimePieces = convertSecToMin(currentAudioTime);
   let minutesWithPadding = currentAudioTimePieces.minutes;
   if (currentAudioTimePieces.minutes < 10) {
     minutesWithPadding = "0" + currentAudioTimePieces.minutes;
@@ -91,7 +102,7 @@ function getCurrentSongTime() {
 function getSongLength() {
   currentAudioTimeLength = audioPlayer.duration;
   audioPlayerSlider.max = currentAudioTimeLength;
-  currentAudioTimeLengthPieces = convertSecToMin(currentAudioTimeLength);
+  let currentAudioTimeLengthPieces = convertSecToMin(currentAudioTimeLength);
   let minutesLengthWithPadding = "00";
   if (Number.isInteger(currentAudioTimeLengthPieces.minutes)) {
     minutesLengthWithPadding = currentAudioTimeLengthPieces.minutes;
@@ -110,7 +121,8 @@ function getSongLength() {
   return currentAudioTimeLength;
 }
 
-function playbackTimeUpdate(playFromTime) {
+export function playbackTimeUpdate(event) {
+  let playFromTime = event.target.value;
   // ref: https://developers.google.com/web/updates/2017/06
   //   /play-request-was-interrupted
   if (playPromise !== undefined) {
@@ -231,7 +243,7 @@ function loadFirstAvailableSong() {
 }
 
 function loadClickedSong(event) {
-  songIdPieces = event.target.id.split("_");
+  let songIdPieces = event.target.id.split("_");
   // Note: the id from the event is actually a string
   // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
   //   /Global_Objects/Number
@@ -373,9 +385,9 @@ function getSameSong() {
 }
 
 function getClickedSong(event) {
-  songIdPieces = event.target.id.split("_");
+  let songIdPieces = event.target.id.split("_");
   // Note: the id from the event is actually a string
-  loadSameSong();
+  loadClickedSong(event);
   // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
   //   /Global_Objects/Number
   currentSongIndex = Number.parseInt(songIdPieces[1]);
@@ -391,7 +403,7 @@ function getClickedSong(event) {
 
 function openAlbum(event, albumId) {
   albumListOpen = true;
-  albumIdPieces = albumId.split("_");
+  let albumIdPieces = albumId.split("_");
   songs = data["albums"][albumIdPieces[1]]["songs"];
   songList.innerHTML = "<ol></ol>";
   let i = 0;
