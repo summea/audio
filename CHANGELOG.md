@@ -1,9 +1,17 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
-## [Unreleased]
+## [1.2.0] - 2021-08-14
 ### Added
 - Feature to use album song numbers for list of songs displayed for a given album (Issue #49)
+- Settings variable for albums.json link (Issue #52)
+
+### Changed
+- The app.js structure so that it now uses a module type of approach
+
+### Fixed
+- Issue where when clicking a specific song of an opened album, the 0,0 (first album, first song) would unexpectedly play (Issue #50)
+- Issue where song length calculation was wrong on mobile web version (Issue #51)
 
 ### Removed
 - Old `songs.json` data file
