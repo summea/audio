@@ -1,3 +1,7 @@
+#albumList {
+  font-family: 'Inconsolata', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 #audioPlayerSlider {
   width: 100%;
 }
@@ -21,7 +25,7 @@
      /Using_media_queries */
 @media (max-width: 500px) {
   .audioContainer {
-    width: 300px;
+    width: auto;
   }
 }
 
@@ -73,10 +77,11 @@ body {
   justify-content: center;
 }
 
+/*
 .container {
-  font-family: 'Inconsolata', Arial, sans-serif;
   max-width: 500px;
 }
+*/
 
 .control {
   color: #000;
@@ -101,4 +106,8 @@ body {
 
 .repeatOneEnabled {
   color: #f00;
+}
+
+#songList {
+  font-family: 'Inconsolata', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
