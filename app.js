@@ -121,7 +121,7 @@ function getSongLength() {
   return currentAudioTimeLength;
 }
 
-export function playbackTimeUpdate(event) {
+function playbackTimeUpdate(event) {
   let playFromTime = event.target.value;
   // ref: https://developers.google.com/web/updates/2017/06
   //   /play-request-was-interrupted
