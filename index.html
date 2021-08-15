@@ -7,94 +7,8 @@
 <title>Audio</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
-<style>
-#audioPlayerSlider {
-  width: 100%;
-}
-
-#currentAudioTitle {
-  flex: auto;
-  text-align: center;
-}
-
-.audioContainer {
-  border: 1px solid #777;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.audioNextButtonBox {
-  justify-content: right;
-  width: 24px;
-}
-
-/* ref: https://www.w3.org/Style/Examples/007/center.en.html */
-/* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
-.audioPlayButtonBox {
-  flex: auto;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-}
-
-.audioPrevButtonBox {
-  justify-content: left;
-  width: 24px;
-}
-
-.controlBoxDetails {
-  display: flex;
-  flex-direction: row;
-}
-
-.audioRandomButtonBox {
-  flex: auto;
-  text-align: center;
-}
-
-.audioRepeatOneButtonBox {
-  flex: auto;
-  text-align: center;
-}
-
-.audioTimePlayed {
-  float: left;
-}
-
-.audioLength {
-  float: right;
-}
-
-.container {
-  font-family: 'Inconsolata', Arial, sans-serif;
-  max-width: 500px;
-}
-
-.control {
-  color: #000;
-}
-
-.controlBox {
-  display: flex;
-  flex-direction: row;
-}
-
-.randomDisabled {
-  color: #000;
-}
-
-.randomEnabled {
-  color: #f00;
-}
-
-.repeatOneDisabled {
-  color: #000;
-}
-
-.repeatOneEnabled {
-  color: #f00;
-}
-</style>
+<!-- ref: as website -->
+<link rel="stylesheet" href="css/audio.css">
 </head>
 <body>
 <div class="container">
@@ -110,8 +24,7 @@ Your browser does not support the <code>audio</code> element.
     min="0"
     max="0"
     value="0"
-    step="1"
-    oninput="playbackTimeUpdate(value)" />
+    step="1" />
 <div class="controlBox">
 <div class="audioPrevButtonBox">
 <a href="#" id="prev" class="control audioPrevButton"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
@@ -150,6 +63,12 @@ Song List<br />
   <ul></ul>
 </div>
 </div>
-<script src="app.js"></script>
+<!-- ref: https://github.com/mdn/js-examples/blob/master/modules/basic-modules/index.html -->
+<script type="module">
+  import { playbackTimeUpdate, setup } from "./app.js"
+  window.onload = function() {
+    setup();
+  }
+</script>
 </body>
 </html>
