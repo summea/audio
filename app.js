@@ -64,7 +64,13 @@ export function setup() {
       let i = 0;
       albums.forEach(album => {
         let li = document.createElement("li");
+        let albumDiv = document.createElement("div");
+        albumDiv.className = 'albumDiv';
         let link = document.createElement("a");
+        let albumCoverImage = document.createElement("img");
+        albumCoverImage.src = album["coverImage"];
+        albumCoverImage.className = "albumCoverImage";
+        link.appendChild(albumCoverImage);
         let linkText = document.createTextNode(album.name);
         link.id = "album_" + i;
         link.href = album.url;
@@ -74,7 +80,8 @@ export function setup() {
           event.preventDefault();
           openAlbum(event, link.id);
         });
-        li.append(link);
+        albumDiv.append(link)
+        li.append(albumDiv);
         albumList.querySelector("ul").append(li);
         i++;
       });
