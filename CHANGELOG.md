@@ -1,6 +1,10 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
+## [Unreleased]
+### Added
+- Initial idea for album carousel (Issue #56)
+
 ## [1.2.1] - 2021-08-14
 ### Fixed
 - Some CSS related issues on mobile web version
