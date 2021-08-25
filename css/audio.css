@@ -142,21 +142,3 @@ body {
 #songList {
   font-family: 'Inconsolata', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
-.animateAlbumsLeft {
-  /* ref: https://www.designcise.com/web/tutorial
-       /how-to-stop-on-the-last-frame-when-a-css-animation-ends */
-  -webkit-animation: 1s linear 0s 1 normal forwards running slideOverToLeft;
-  animation: 1s linear 0s 1 normal forwards running slideOverToLeft;
-}
-.animateAlbumsRight {
-  /* ref: https://www.designcise.com/web/tutorial
-       /how-to-stop-on-the-last-frame-when-a-css-animation-ends */
-  -webkit-animation: 1s linear 0s 1 normal forwards running slideOverToRight;
-  animation: 1s linear 0s 1 normal forwards running slideOverToRight;
-}
-
-@-webkit-keyframes slideOverToLeft { from { margin-left: 0px; } to { margin-left: -100px; }
-@keyframes slideOverToLeft { from { margin-left: 0px; } to { margin-left: -100px; }
-@-webkit-keyframes slideOverToRight { from { margin-left: 0; } to { margin-left: 100px; }
-@keyframes slideOverToRight { from { margin-left: 0; } to { margin-left: 100px; }

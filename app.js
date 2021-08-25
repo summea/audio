@@ -450,14 +450,52 @@ function getRandomSong() {
   return {"albumId": randomAlbumId, "songId": randomSongId};
 }
 
-prevAlbumButton.addEventListener('click', function() {
+let albumsX = 0;
+
+prevAlbumButton.addEventListener('click', function(event) {
   let albums = albumList.getElementsByTagName('li');
-  albums[0].className = "animateAlbumsLeft";
-  console.log(albums);
+  // ref: https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API
+  //   /Keyframe_Formats
+  // ref: https://www.designcise.com/web/tutorial
+  //   /how-to-stop-on-the-last-frame-when-a-css-animation-ends
+  // ref: https://developer.mozilla.org/en-US/docs/Web/API/Animation/persist
+  // ref: https://www.sitepoint.com/community/t
+  //   /keyframes-how-to-prevent-animation-resetting-to-the-first-frame/249925
+  albumsX += 100;
+  albums[0].animate(
+    {
+      // from
+      marginLeft: albumsX + "px",
+    },
+    {
+      // to
+      marginLeft: (albumsX + 100) + "px",
+      duration: 500,
+      fill: "forwards"
+    }
+  );
 });
 
 nextAlbumButton.addEventListener('click', function(event) {
   let albums = albumList.getElementsByTagName('li');
-  albums[0].className = "animateAlbumsRight";
-  console.log(albums);
+  // ref: https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API
+  //   /Keyframe_Formats
+  // ref: https://www.designcise.com/web/tutorial
+  //   /how-to-stop-on-the-last-frame-when-a-css-animation-ends
+  // ref: https://developer.mozilla.org/en-US/docs/Web/API/Animation/persist
+  // ref: https://www.sitepoint.com/community/t
+  //   /keyframes-how-to-prevent-animation-resetting-to-the-first-frame/249925
+  albumsX -= 100;
+  albums[0].animate(
+    {
+      // from
+      marginLeft: albumsX + "px",
+    },
+    {
+      // to
+      marginLeft: (albumsX + 100) + "px",
+      duration: 500,
+      fill: "forwards"
+    }
+  );
 });
