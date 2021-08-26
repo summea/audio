@@ -18,8 +18,9 @@
 
 #albumList {
   font-family: 'Inconsolata', "Helvetica Neue", Helvetica, Arial, sans-serif;
-  width: 400px;
-  overflow: hidden;
+  width: 418px;
+  display: flex;
+  flex-direction: row;
 }
 
 /* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
@@ -27,10 +28,36 @@
   list-style-type: none;
   display: flex;
   flex-direction: row;
+  flex: auto;
+  width: 320px;
+  overflow: hidden;
 }
 
 #albumList ul li {
   list-style-type: none;
+}
+
+#prevAlbumButton {
+  justify-content: left;
+  width: 24px;
+  vertical-align: middle;
+}
+
+/* ref: https://developer.mozilla.org/en-US/docs/Web/CSS
+     /CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container */
+#prevAlbumButtonBox {
+  display: flex;
+  align-items: center;
+}
+
+#nextAlbumButton {
+  justify-content: right;
+  width: 24px;
+}
+
+#nextAlbumButtonBox {
+  display: flex;
+  align-items: center;
 }
 
 #audioPlayerSlider {
