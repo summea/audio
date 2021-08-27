@@ -1,9 +1,20 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
-## [Unreleased]
+## [1.3.0] - 2021-08-26
 ### Added
 - Initial idea for album carousel (Issue #56)
+- Prev/next buttons for album carousel (Issue #57)
+- Feature to show only a certain number of albums at a time but to also allow for scrolling left/right (Issue #58)
+- Animation when clicking prev/next album buttons (Issue #59)
+- Feature to prevent ability from going way left or way right on album carousel when clicking through albums (Issue #62)
+
+### Changed
+- Positioned prev/next album buttons on left/right side of album carousel (Issue #61)
+- Renamed "Repeat One" button to "Repeat" for now (Issue #64)
+
+### Fixed
+- Issue where song clicked from album list was not playing on mobile (Issue #63)
 
 ## [1.2.1] - 2021-08-14
 ### Fixed
