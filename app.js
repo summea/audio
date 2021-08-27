@@ -399,9 +399,8 @@ function getSameSong() {
 }
 
 function getClickedSong(event) {
-  let songIdPieces = event.target.id.split("_");
   // Note: the id from the event is actually a string
-  loadClickedSong(event);
+  let songIdPieces = event.target.id.split("_");
   // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
   //   /Global_Objects/Number
   currentSongIndex = Number.parseInt(songIdPieces[1]);
@@ -409,6 +408,7 @@ function getClickedSong(event) {
   currentAudioTitleValue = songs[currentSongIndex].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   userClickedSongFromList = true;
+  loadClickedSong(event);
   const clickEvent = new Event("click");
   audioState = "paused";
   currentAudioTime = 0;
