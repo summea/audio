@@ -453,7 +453,6 @@ function getRandomSong() {
 let albumsX = 0;
 
 prevAlbumButton.addEventListener('click', function(event) {
-  console.log(albumsX);
   let albums = albumList.getElementsByTagName('li');
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API
   //   /Keyframe_Formats
