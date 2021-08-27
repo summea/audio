@@ -79,11 +79,21 @@
   font-family: 'Inconsolata', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+/* Mobile CSS Rules */
 /* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries
      /Using_media_queries */
 @media (max-width: 500px) {
   .audioContainer {
     width: auto;
+  }
+
+  #albumList {
+    width: 300px;
+  }
+
+  /* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
+  #albumList ul {
+    width: 252px;
   }
 }
 
