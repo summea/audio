@@ -488,7 +488,7 @@ nextAlbumButton.addEventListener('click', function(event) {
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/Animation/persist
   // ref: https://www.sitepoint.com/community/t
   //   /keyframes-how-to-prevent-animation-resetting-to-the-first-frame/249925
-  if (albumsX < -300) {
+  if (albumsX < 200 + (albums.length * -100)) {
     return false;
   }
   albumsX -= 100;
