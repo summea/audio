@@ -32,32 +32,32 @@
         "coverImage": "https://music.andrewsummers.com/images/9/9a/Life_everlasting_300.png",
         "name": "Life Everlasting",
         "songs": [
-            {"name": "Faith", "url": "http://music.andrewsummers.com/albums/lifeeverlasting/01%20Faith.mp3", "albumSongNumber": 1},
-            {"name": "Wealth", "url": "http://music.andrewsummers.com/albums/lifeeverlasting/02%20Wealth.mp3", "albumSongNumber": 2},
+            {"name": "Faith", "url": "https://music.andrewsummers.com/albums/lifeeverlasting/01%20Faith.mp3", "albumSongNumber": 1},
+            {"name": "Wealth", "url": "https://music.andrewsummers.com/albums/lifeeverlasting/02%20Wealth.mp3", "albumSongNumber": 2},
             {"name": "Mustard Seed", "url": "https://music.andrewsummers.com/albums/lifeeverlasting/03%20Mustard%20Seed.mp3", "albumSongNumber": 3},
-            {"name": "Flow", "url": "http://music.andrewsummers.com/albums/lifeeverlasting/04%20Flow.mp3", "albumSongNumber": 4},
-            {"name": "Rest", "url": "http://music.andrewsummers.com/albums/lifeeverlasting/05%20Rest.mp3", "albumSongNumber": 5},
-            {"name": "Worry", "url": "http://music.andrewsummers.com/albums/lifeeverlasting/06%20Worry.mp3", "albumSongNumber": 6},
-            {"name": "Father's Child", "url": "http://music.andrewsummers.com/albums/lifeeverlasting/07%20Father_s%20Child.mp3", "albumSongNumber": 7},
-            {"name": "Bread I: Leaven", "url": "http://music.andrewsummers.com/albums/lifeeverlasting/08%20Bread%20I_%20Leaven.mp3", "albumSongNumber": 8},
-            {"name": "Bread II: Life", "url": "http://music.andrewsummers.com/albums/lifeeverlasting/09%20Bread%20II_%20Life.mp3", "albumSongNumber": 9},
-            {"name": "Bread III: Body", "url": "http://music.andrewsummers.com/albums/lifeeverlasting/10%20Bread%20III_%20Body.mp3", "albumSongNumber": 10}
+            {"name": "Flow", "url": "https://music.andrewsummers.com/albums/lifeeverlasting/04%20Flow.mp3", "albumSongNumber": 4},
+            {"name": "Rest", "url": "https://music.andrewsummers.com/albums/lifeeverlasting/05%20Rest.mp3", "albumSongNumber": 5},
+            {"name": "Worry", "url": "https://music.andrewsummers.com/albums/lifeeverlasting/06%20Worry.mp3", "albumSongNumber": 6},
+            {"name": "Father's Child", "url": "https://music.andrewsummers.com/albums/lifeeverlasting/07%20Father_s%20Child.mp3", "albumSongNumber": 7},
+            {"name": "Bread I: Leaven", "url": "https://music.andrewsummers.com/albums/lifeeverlasting/08%20Bread%20I_%20Leaven.mp3", "albumSongNumber": 8},
+            {"name": "Bread II: Life", "url": "https://music.andrewsummers.com/albums/lifeeverlasting/09%20Bread%20II_%20Life.mp3", "albumSongNumber": 9},
+            {"name": "Bread III: Body", "url": "https://music.andrewsummers.com/albums/lifeeverlasting/10%20Bread%20III_%20Body.mp3", "albumSongNumber": 10}
         ]
     },
     {
         "coverImage": "https://music.andrewsummers.com/images/9/91/Light_300.png",
         "name": "Light",
         "songs": [
-            {"name": "Shine Together", "url": "http://music.andrewsummers.com/albums/light/01%20Shine%20Together.mp3", "albumSongNumber": 1},
-            {"name": "Perfect Love", "url": "http://music.andrewsummers.com/albums/light/02%20Perfect%20Love.mp3", "albumSongNumber": 2},
-            {"name": "Lifted", "url": "http://music.andrewsummers.com/albums/light/03%20Lifted.mp3", "albumSongNumber": 3},
-            {"name": "Sons of Light", "url": "http://music.andrewsummers.com/albums/light/04%20Sons%20of%20Light.mp3", "albumSongNumber": 4},
-            {"name": "Dwelling", "url": "http://music.andrewsummers.com/albums/light/05%20Dwelling.mp3", "albumSongNumber": 5},
-            {"name": "Shine Forth", "url": "http://music.andrewsummers.com/albums/light/06%20Shine%20Forth.mp3", "albumSongNumber": 6},
-            {"name": "Ministry of Light", "url": "http://music.andrewsummers.com/albums/light/07%20Ministry%20of%20Light.mp3", "albumSongNumber": 7},
-            {"name": "New Family", "url": "http://music.andrewsummers.com/albums/light/08%20New%20Family.mp3", "albumSongNumber": 8},
-            {"name": "Exposure", "url": "http://music.andrewsummers.com/albums/light/09%20Exposure.mp3", "albumSongNumber": 9},
-            {"name": "Prism", "url": "http://music.andrewsummers.com/albums/light/10%20Prism.mp3", "albumSongNumber": 10}
+            {"name": "Shine Together", "url": "https://music.andrewsummers.com/albums/light/01%20Shine%20Together.mp3", "albumSongNumber": 1},
+            {"name": "Perfect Love", "url": "https://music.andrewsummers.com/albums/light/02%20Perfect%20Love.mp3", "albumSongNumber": 2},
+            {"name": "Lifted", "url": "https://music.andrewsummers.com/albums/light/03%20Lifted.mp3", "albumSongNumber": 3},
+            {"name": "Sons of Light", "url": "https://music.andrewsummers.com/albums/light/04%20Sons%20of%20Light.mp3", "albumSongNumber": 4},
+            {"name": "Dwelling", "url": "https://music.andrewsummers.com/albums/light/05%20Dwelling.mp3", "albumSongNumber": 5},
+            {"name": "Shine Forth", "url": "https://music.andrewsummers.com/albums/light/06%20Shine%20Forth.mp3", "albumSongNumber": 6},
+            {"name": "Ministry of Light", "url": "https://music.andrewsummers.com/albums/light/07%20Ministry%20of%20Light.mp3", "albumSongNumber": 7},
+            {"name": "New Family", "url": "https://music.andrewsummers.com/albums/light/08%20New%20Family.mp3", "albumSongNumber": 8},
+            {"name": "Exposure", "url": "https://music.andrewsummers.com/albums/light/09%20Exposure.mp3", "albumSongNumber": 9},
+            {"name": "Prism", "url": "https://music.andrewsummers.com/albums/light/10%20Prism.mp3", "albumSongNumber": 10}
         ]
     },
     {
@@ -80,29 +80,29 @@
         "coverImage": "https://music.andrewsummers.com/images/9/93/Promised_one_300.png",
         "name": "Promised One",
         "songs": [
-            {"name": "Icy Waters", "url": "http://music.andrewsummers.com/albums/promisedone/01%20Icy%20Waters.mp3", "albumSongNumber": 1},
-            {"name": "From Here On", "url": "http://music.andrewsummers.com/albums/promisedone/02%20From%20Here%20On.mp3", "albumSongNumber": 2},
-            {"name": "Starry Skies", "url": "http://music.andrewsummers.com/albums/promisedone/03%20Starry%20Skies.mp3", "albumSongNumber": 3},
-            {"name": "Snow Trails", "url": "http://music.andrewsummers.com/albums/promisedone/04%20Snow%20Trails.mp3", "albumSongNumber": 4},
-            {"name": "Changing of the Guards", "url": "http://music.andrewsummers.com/albums/promisedone/05%20Changing%20of%20the%20Guards.mp3", "albumSongNumber": 5},
-            {"name": "Long-Awaited Child", "url": "http://music.andrewsummers.com/albums/promisedone/06%20Long-Awaited%20Child.mp3", "albumSongNumber": 6},
-            {"name": "The Magi", "url": "http://music.andrewsummers.com/albums/promisedone/07%20The%20Magi.mp3", "albumSongNumber": 7},
-            {"name": "Anointed One", "url": "http://music.andrewsummers.com/albums/promisedone/08%20Anointed%20One.mp3", "albumSongNumber": 8},
-            {"name": "Rest for the Weary", "url": "http://music.andrewsummers.com/albums/promisedone/09%20Rest%20for%20the%20Weary.mp3", "albumSongNumber": 9},
-            {"name": "Winding Down", "url": "http://music.andrewsummers.com/albums/promisedone/10%20Winding%20Down.mp3", "albumSongNumber": 10}
+            {"name": "Icy Waters", "url": "https://music.andrewsummers.com/albums/promisedone/01%20Icy%20Waters.mp3", "albumSongNumber": 1},
+            {"name": "From Here On", "url": "https://music.andrewsummers.com/albums/promisedone/02%20From%20Here%20On.mp3", "albumSongNumber": 2},
+            {"name": "Starry Skies", "url": "https://music.andrewsummers.com/albums/promisedone/03%20Starry%20Skies.mp3", "albumSongNumber": 3},
+            {"name": "Snow Trails", "url": "https://music.andrewsummers.com/albums/promisedone/04%20Snow%20Trails.mp3", "albumSongNumber": 4},
+            {"name": "Changing of the Guards", "url": "https://music.andrewsummers.com/albums/promisedone/05%20Changing%20of%20the%20Guards.mp3", "albumSongNumber": 5},
+            {"name": "Long-Awaited Child", "url": "https://music.andrewsummers.com/albums/promisedone/06%20Long-Awaited%20Child.mp3", "albumSongNumber": 6},
+            {"name": "The Magi", "url": "https://music.andrewsummers.com/albums/promisedone/07%20The%20Magi.mp3", "albumSongNumber": 7},
+            {"name": "Anointed One", "url": "https://music.andrewsummers.com/albums/promisedone/08%20Anointed%20One.mp3", "albumSongNumber": 8},
+            {"name": "Rest for the Weary", "url": "https://music.andrewsummers.com/albums/promisedone/09%20Rest%20for%20the%20Weary.mp3", "albumSongNumber": 9},
+            {"name": "Winding Down", "url": "https://music.andrewsummers.com/albums/promisedone/10%20Winding%20Down.mp3", "albumSongNumber": 10}
         ]
     },
     {
         "coverImage": "https://music.andrewsummers.com/images/b/b6/Color_emotion_300.png",
         "name": "Color Emotion",
         "songs": [
-            {"name": "Red Anger", "url": "http://music.andrewsummers.com/albums/coloremotion/01%20Red%20Anger.mp3", "albumSongNumber": 1},
-            {"name": "Orange Delight", "url": "http://music.andrewsummers.com/albums/coloremotion/02%20Orange%20Delight.mp3", "albumSongNumber": 2},
-            {"name": "Joy Yellow", "url": "http://music.andrewsummers.com/albums/coloremotion/03%20Joy%20Yellow.mp3", "albumSongNumber": 3},
-            {"name": "Hope Green", "url": "http://music.andrewsummers.com/albums/coloremotion/04%20Hope%20Green.mp3", "albumSongNumber": 4},
-            {"name": "Depression Blue", "url": "http://music.andrewsummers.com/albums/coloremotion/05%20Depression%20Blue.mp3", "albumSongNumber": 5},
-            {"name": "Indigo Comfort", "url": "http://music.andrewsummers.com/albums/coloremotion/06%20Indigo%20Comfort.mp3", "albumSongNumber": 6},
-            {"name": "Violet Courage", "url": "http://music.andrewsummers.com/albums/coloremotion/07%20Violet%20Courage.mp3", "albumSongNumber": 7}
+            {"name": "Red Anger", "url": "https://music.andrewsummers.com/albums/coloremotion/01%20Red%20Anger.mp3", "albumSongNumber": 1},
+            {"name": "Orange Delight", "url": "https://music.andrewsummers.com/albums/coloremotion/02%20Orange%20Delight.mp3", "albumSongNumber": 2},
+            {"name": "Joy Yellow", "url": "https://music.andrewsummers.com/albums/coloremotion/03%20Joy%20Yellow.mp3", "albumSongNumber": 3},
+            {"name": "Hope Green", "url": "https://music.andrewsummers.com/albums/coloremotion/04%20Hope%20Green.mp3", "albumSongNumber": 4},
+            {"name": "Depression Blue", "url": "https://music.andrewsummers.com/albums/coloremotion/05%20Depression%20Blue.mp3", "albumSongNumber": 5},
+            {"name": "Indigo Comfort", "url": "https://music.andrewsummers.com/albums/coloremotion/06%20Indigo%20Comfort.mp3", "albumSongNumber": 6},
+            {"name": "Violet Courage", "url": "https://music.andrewsummers.com/albums/coloremotion/07%20Violet%20Courage.mp3", "albumSongNumber": 7}
         ]
     },
     {
