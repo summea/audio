@@ -132,11 +132,13 @@
 }
 
 .audioTimePlayed {
-  float: left;
+  justify-content: left;
+  width: 35px;
 }
 
 .audioLength {
-  float: right;
+  justify-content: right;
+  width: 35px;
 }
 
 body {

@@ -42,6 +42,7 @@ let nextAlbumButton = document.getElementById("nextAlbumButton");
 let prevAlbumButton = document.getElementById("prevAlbumButton");
 let firstPlay = true;
 let playPromise;
+let lastPlayedSongs = [];
 
 export function setup() {
   // ref: https://stackoverflow.com/a/53069733/1167750
@@ -201,6 +202,9 @@ function getKeyboardKey(event) {
     const clickEvent = new Event("click");
     currentAudioTime = 0;
     next.dispatchEvent(clickEvent);    
+  } else if (event.code === "Space") {
+    const clickEvent = new Event("click");
+    play.dispatchEvent(clickEvent);
   }
 }
 
@@ -236,8 +240,13 @@ function loadNextSong() {
 
 function loadPrevSong() {
   getPrevSong();
-  audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSongIndex].url;
-  currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSongIndex].name;
+  if (randomButtonEnabled) {
+    audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSong].url;
+    currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSong].name;
+  } else {
+    audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSongIndex].url;
+    currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSongIndex].name;
+  }
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   // ref: https://stackoverflow.com/a/49794011/1167750
   audioPlayer.load();
@@ -301,9 +310,6 @@ prev.addEventListener("click", event => {
   event.preventDefault();
   if (repeatOneButtonEnabled) {
     loadSameSong();
-  } else if (randomButtonEnabled) {
-    audioState = "stopped";
-    loadRandomSong();
   } else {
     loadPrevSong();
   }
@@ -370,7 +376,14 @@ function convertSecToMin(seconds) {
 }
 
 function getPrevSong() {
-
+  currentAudioTime = 0;
+  audioState = "paused";
+  if (randomButtonEnabled) {
+    lastPlayedSongs.pop();
+    currentAlbum = lastPlayedSongs[lastPlayedSongs.length-1].currentAlbum;
+    currentSong = lastPlayedSongs[lastPlayedSongs.length-1].currentSong;
+    return true;
+  }
   if ((currentSongIndex - 1) >= 0) {
     currentSongIndex--;
   } else {
@@ -379,8 +392,6 @@ function getPrevSong() {
         currentSongIndex = data["albums"][currentAlbum]["songs"].length - 1;
     }
   }
-  currentAudioTime = 0;
-  audioState = "paused";
 }
 
 function getNextSong() {
@@ -391,6 +402,12 @@ function getNextSong() {
   }
   currentAudioTime = 0;
   audioState = "paused";
+  // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
+  //   /Global_Objects/Array
+  lastPlayedSongs.push({
+    "currentAlbum": currentAlbum,
+    "currentSong": currentSong
+  });
 }
 
 function getSameSong() {
@@ -447,6 +464,12 @@ function getRandomSong() {
   let randomAlbumId = Math.floor(Math.random() * totalAlbums);
   let totalSongsOnAlbum = data["albums"][randomAlbumId]["songs"].length;
   let randomSongId = Math.floor(Math.random() * totalSongsOnAlbum);
+  // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
+  //   /Global_Objects/Array
+  lastPlayedSongs.push({
+    "currentAlbum": randomAlbumId,
+    "currentSong": randomSongId
+  });
   return {"albumId": randomAlbumId, "songId": randomSongId};
 }
 
