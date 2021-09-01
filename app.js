@@ -75,11 +75,15 @@ export function setup() {
         let albumDiv = document.createElement("div");
         albumDiv.className = 'albumDiv';
         let link = document.createElement("a");
+        let linkText = album.name;
         let albumCoverImage = document.createElement("img");
         albumCoverImage.src = album["coverImage"];
         albumCoverImage.className = "albumCoverImage";
+        // ref: https://developer.mozilla.org/en-US/docs/Web/Performance
+        //   /Lazy_loading
+        albumCoverImage.loading = "lazy";
+        albumCoverImage.alt = linkText;
         link.appendChild(albumCoverImage);
-        let linkText = document.createTextNode(album.name);
         link.id = "album_" + i;
         link.href = album.url;
         link.className = "album";
@@ -152,6 +156,7 @@ function playbackTimeUpdate(event) {
 
 // ref: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
 play.addEventListener("click", event => {
+  event.preventDefault();
   if (firstPlay) {
     if (randomButtonEnabled) {
       loadRandomSong();
