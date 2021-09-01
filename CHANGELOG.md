@@ -1,6 +1,13 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
+## [Unreleased]
+### Changed
+- Tried using lazy loading for album images to see if it helps with Issue #68
+
+### Fixed
+- Issue where page would jump to top when pressing play/pause button (Issue #71)
+
 ## [1.3.0] - 2021-08-26
 ### Added
 - Initial idea for album carousel (Issue #56)
