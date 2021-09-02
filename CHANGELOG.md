@@ -4,6 +4,7 @@ A place to keep track of changes for this audio project.
 ## [Unreleased]
 ### Added
 - Alt tag information for album images
+- Lazy loading for offscreen album images
 
 ### Changed
 - Reduced image size to 100x100px for album images to hopefully help reduce load time

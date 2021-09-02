@@ -81,6 +81,10 @@ export function setup() {
         albumCoverImage.className = "albumCoverImage";
         // ref: https://developer.mozilla.org/en-US/docs/Web/Performance
         //   /Lazy_loading
+        // The early album images should load first
+        if (i > 2) {
+          albumCoverImage.loading = 'lazy';
+        }
         albumCoverImage.alt = linkText;
         link.appendChild(albumCoverImage);
         link.id = "album_" + i;
