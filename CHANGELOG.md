@@ -5,6 +5,10 @@ A place to keep track of changes for this audio project.
 ### Added
 - Alt tag information for album images
 
+### Changed
+- Reduced image size to 100x100px for album images to hopefully help reduce load time
+- Updated `albums.json` to use new, smaller album images
+
 ### Fixed
 - Issue where page would jump to top when pressing play/pause button (Issue #71)
 
