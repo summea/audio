@@ -1,6 +1,6 @@
 {"albums": [
     {
-        "coverImage": "https://music.andrewsummers.com/images/e/e8/Fall_2008_300.png",
+        "coverImage": "https://music.andrewsummers.com/images/e/e8/Fall_2008_100.png",
         "name": "Before the Harvest",
         "songs": [
             {"name": "Air Balloon", "url": "https://music.andrewsummers.com/albums/beforetheharvest/01%20Air%20Balloon.mp3", "albumSongNumber": 1},
@@ -14,7 +14,7 @@
         ]
     },
     {
-        "coverImage": "https://music.andrewsummers.com/images/d/d1/Still_waters_300.png",
+        "coverImage": "https://music.andrewsummers.com/images/d/d1/Still_waters_100.png",
         "name": "Still Waters",
         "songs": [
             {"name": "Arizona", "url": "https://music.andrewsummers.com/albums/stillwaters/01%20Arizona.mp3", "albumSongNumber": 1},
@@ -29,7 +29,7 @@
         ]
     },
     {
-        "coverImage": "https://music.andrewsummers.com/images/9/9a/Life_everlasting_300.png",
+        "coverImage": "https://music.andrewsummers.com/images/9/9a/Life_everlasting_100.png",
         "name": "Life Everlasting",
         "songs": [
             {"name": "Faith", "url": "https://music.andrewsummers.com/albums/lifeeverlasting/01%20Faith.mp3", "albumSongNumber": 1},
@@ -45,7 +45,7 @@
         ]
     },
     {
-        "coverImage": "https://music.andrewsummers.com/images/9/91/Light_300.png",
+        "coverImage": "https://music.andrewsummers.com/images/9/91/Light_100.png",
         "name": "Light",
         "songs": [
             {"name": "Shine Together", "url": "https://music.andrewsummers.com/albums/light/01%20Shine%20Together.mp3", "albumSongNumber": 1},
@@ -61,7 +61,7 @@
         ]
     },
     {
-        "coverImage": "https://music.andrewsummers.com/images/1/10/Forward_in_time_300.png",
+        "coverImage": "https://music.andrewsummers.com/images/1/10/Forward_in_time_100.png",
         "name": "Forward in Time",
         "songs": [
             {"name": "Bumpy Sleigh Ride", "url": "https://music.andrewsummers.com/albums/forwardintime/01%20Bumpy%20Sleigh%20Ride.mp3", "albumSongNumber": 1},
@@ -77,7 +77,7 @@
         ]
     },
     {
-        "coverImage": "https://music.andrewsummers.com/images/9/93/Promised_one_300.png",
+        "coverImage": "https://music.andrewsummers.com/images/9/93/Promised_one_100.png",
         "name": "Promised One",
         "songs": [
             {"name": "Icy Waters", "url": "https://music.andrewsummers.com/albums/promisedone/01%20Icy%20Waters.mp3", "albumSongNumber": 1},
@@ -93,7 +93,7 @@
         ]
     },
     {
-        "coverImage": "https://music.andrewsummers.com/images/b/b6/Color_emotion_300.png",
+        "coverImage": "https://music.andrewsummers.com/images/b/b6/Color_emotion_100.png",
         "name": "Color Emotion",
         "songs": [
             {"name": "Red Anger", "url": "https://music.andrewsummers.com/albums/coloremotion/01%20Red%20Anger.mp3", "albumSongNumber": 1},
@@ -106,7 +106,7 @@
         ]
     },
     {
-        "coverImage": "https://music.andrewsummers.com/images/8/84/Wind_trails_300.png",
+        "coverImage": "https://music.andrewsummers.com/images/8/84/Wind_trails_100.png",
         "name": "Wind Trails",
         "songs": [
             {"name": "Letting You Down", "url": "https://music.andrewsummers.com/albums/windtrails/01%20Letting%20You%20Down.mp3", "albumSongNumber": 1},
@@ -122,7 +122,7 @@
         ]
     }, 
     {
-        "coverImage": "https://music.andrewsummers.com/images/c/c0/Memories_are_photos_300.png",
+        "coverImage": "https://music.andrewsummers.com/images/c/c0/Memories_are_photos_100.png",
         "name": "Memories are Photos",
         "songs": [
             {"name": "Backseat", "url": "https://music.andrewsummers.com/albums/memoriesarephotos/01%20Backseat.mp3", "albumSongNumber": 1},
@@ -138,7 +138,7 @@
         ]
     },
     {
-        "coverImage": "https://music.andrewsummers.com/images/7/77/Hokkaido_300.png",
+        "coverImage": "https://music.andrewsummers.com/images/7/77/Hokkaido_100.png",
         "name": "Hokkaido",
         "songs": [
             {"name": "In A Land Without God", "url": "https://music.andrewsummers.com/albums/hokkaido/01%20In%20A%20Land%20Without%20God.mp3", "albumSongNumber": 1},
