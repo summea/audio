@@ -5,6 +5,7 @@ A place to keep track of changes for this audio project.
 ### Added
 - Alt tag information for album images
 - Lazy loading for offscreen album images
+- Added feature where you can go to a specific album and song via query parameters in URL (Issue #55)
 
 ### Changed
 - Reduced image size to 100x100px for album images to hopefully help reduce load time
@@ -12,6 +13,7 @@ A place to keep track of changes for this audio project.
 
 ### Fixed
 - Issue where page would jump to top when pressing play/pause button (Issue #71)
+- Issue where page would jump to top when pressing prev/next album buttons (Issue #73)
 
 ## [1.3.0] - 2021-08-26
 ### Added
