@@ -43,6 +43,9 @@ let prevAlbumButton = document.getElementById("prevAlbumButton");
 let firstPlay = true;
 let playPromise;
 let lastPlayedSongs = [];
+// ref: https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
+// ref: https://developer.mozilla.org/en-US/docs/Web/API/Window/location
+let queryStringParams = new URLSearchParams(location.search);
 
 export function setup() {
   // ref: https://stackoverflow.com/a/53069733/1167750
@@ -54,6 +57,19 @@ export function setup() {
 
   prevAlbumButton.innerHTML = prevAlbumButtonSvg;
   nextAlbumButton.innerHTML = nextAlbumButtonSvg;
+
+  if (queryStringParams.has("albumId")) {
+    // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
+    //   /Global_Objects/Number
+    currentAlbum = Number.parseInt(queryStringParams.get("albumId"));
+  }
+
+  if (queryStringParams.has("songId")) {
+    // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
+    //   /Global_Objects/Number
+    currentSong = Number.parseInt(queryStringParams.get("songId"));
+    currentSongIndex = currentSong;
+  }
 
   // Get song data
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/Request
@@ -262,9 +278,14 @@ function loadPrevSong() {
 }
 
 function loadFirstAvailableSong() {
-  currentAlbum = 0;
-  currentSong = 0;
-  currentSongIndex = 0;
+  if (!queryStringParams.has("albumId")) {
+    currentAlbum = 0;
+    currentSongIndex = 0;
+  }
+  if (!queryStringParams.has("songId")) {
+    currentSong = 0;
+    currentSongIndex = 0;
+  }
   audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSongIndex].url;
   currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSongIndex].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
@@ -484,6 +505,7 @@ function getRandomSong() {
 let albumsX = 0;
 
 prevAlbumButton.addEventListener('click', function(event) {
+  event.preventDefault();
   let albums = albumList.getElementsByTagName('li');
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API
   //   /Keyframe_Formats
@@ -511,6 +533,7 @@ prevAlbumButton.addEventListener('click', function(event) {
 });
 
 nextAlbumButton.addEventListener('click', function(event) {
+  event.preventDefault();
   let albums = albumList.getElementsByTagName('li');
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API
   //   /Keyframe_Formats
