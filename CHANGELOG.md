@@ -14,6 +14,7 @@ A place to keep track of changes for this audio project.
 ### Fixed
 - Issue where page would jump to top when pressing play/pause button (Issue #71)
 - Issue where page would jump to top when pressing prev/next album buttons (Issue #73)
+- Issue where pushing pause button (after song has played and gone to another song) would not pause song for the first click attempt (Issue #44)
 
 ## [1.3.0] - 2021-08-26
 ### Added

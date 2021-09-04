@@ -406,7 +406,6 @@ function convertSecToMin(seconds) {
 
 function getPrevSong() {
   currentAudioTime = 0;
-  audioState = "paused";
   if (randomButtonEnabled) {
     lastPlayedSongs.pop();
     currentAlbum = lastPlayedSongs[lastPlayedSongs.length-1].currentAlbum;
@@ -430,7 +429,6 @@ function getNextSong() {
     currentSongIndex = 0;
   }
   currentAudioTime = 0;
-  audioState = "paused";
   // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
   //   /Global_Objects/Array
   lastPlayedSongs.push({
@@ -441,7 +439,6 @@ function getNextSong() {
 
 function getSameSong() {
   currentAudioTime = 0;
-  audioState = "paused";
 }
 
 function getClickedSong(event) {
