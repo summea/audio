@@ -22,6 +22,7 @@ let randomButtonEnabled = false;
 let repeatOneButtonEnabled = false;
 let currentAlbum = 0;
 let currentSong = 0;
+let currentSongId = 0;
 let userClickedSongFromList = false;
 let audioState = "stopped";
 let currentAudioTime = 0;
@@ -46,6 +47,7 @@ let lastPlayedSongs = [];
 // ref: https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
 // ref: https://developer.mozilla.org/en-US/docs/Web/API/Window/location
 let queryStringParams = new URLSearchParams(location.search);
+let urlHadSongId = false;
 
 export function setup() {
   // ref: https://stackoverflow.com/a/53069733/1167750
@@ -58,16 +60,12 @@ export function setup() {
   prevAlbumButton.innerHTML = prevAlbumButtonSvg;
   nextAlbumButton.innerHTML = nextAlbumButtonSvg;
 
-  if (queryStringParams.has("albumId")) {
-    // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
-    //   /Global_Objects/Number
-    currentAlbum = Number.parseInt(queryStringParams.get("albumId"));
-  }
-
   if (queryStringParams.has("songId")) {
+    urlHadSongId = true;
     // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
     //   /Global_Objects/Number
     currentSong = Number.parseInt(queryStringParams.get("songId"));
+    currentSongId = Number.parseInt(queryStringParams.get("songId"));
     currentSongIndex = currentSong;
   }
 
@@ -194,6 +192,7 @@ play.addEventListener("click", event => {
   let timeChecking;
   // In order to get song length of first song (album: 0, song: 0) on mobile
   getSongLength();
+  console.log(audioState);
   if (audioState === "stopped" || audioState === "paused") {
     audioPlayer.currentTime = currentAudioTime;
     audioState = "playing";
@@ -254,6 +253,10 @@ function loadSameSong() {
 
 function loadNextSong() {
   getNextSong();
+  if (urlHadSongId) {
+    urlHadSongId = false;
+    currentAlbum = getCurrentAlbumIndex();
+  }
   audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSongIndex].url;
   currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSongIndex].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
@@ -264,9 +267,13 @@ function loadNextSong() {
 
 function loadPrevSong() {
   getPrevSong();
+  if (urlHadSongId) {
+    urlHadSongId = false;
+    currentAlbum = getCurrentAlbumIndex();
+  }
   if (randomButtonEnabled) {
-    audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSong].url;
-    currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSong].name;
+    audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSongIndex].url;
+    currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSongIndex].name;
   } else {
     audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSongIndex].url;
     currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSongIndex].name;
@@ -278,16 +285,47 @@ function loadPrevSong() {
 }
 
 function loadFirstAvailableSong() {
-  if (!queryStringParams.has("albumId")) {
-    currentAlbum = 0;
-    currentSongIndex = 0;
+  if (firstPlay) {
+    if (!queryStringParams.has("albumId")) {
+      currentAlbum = 0;
+      currentSongIndex = 0;
+    }
+    if (!queryStringParams.has("songId")) {
+      currentSong = 0;
+      currentSongIndex = 0;
+    }
   }
-  if (!queryStringParams.has("songId")) {
-    currentSong = 0;
-    currentSongIndex = 0;
+  if (currentSongId > 0) {
+    // Get song data
+    // ref: https://developer.okta.com/blog/2021/08/02/fix-common-problems-cors
+    // ref: https://developer.mozilla.org/en-US/docs/Web/API/Request/Request
+    const request = new Request(settings["backendUrl"] + "/audio.php?songId=" + currentSongId, {mode: 'cors'});
+    fetch(request)
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Could not get song data.");
+        }
+      })
+      .then(response => {
+        audioPlayer.src = response.songUrl;
+        currentAudioTitleValue = response.name;
+        currentAlbum = response.albumId;
+        currentSong = response.id;
+        currentSongIndex = response.albumSongNumber - 1;
+      })
+      .catch(error => {
+          console.error(error);
+      });
+  } else {
+    if (urlHadSongId) {
+      urlHadSongId = false;
+      currentAlbum = getCurrentAlbumIndex();
+    }
+    audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSongIndex].url;
+    currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSongIndex].name;
   }
-  audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSongIndex].url;
-  currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSongIndex].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   // ref: https://stackoverflow.com/a/49794011/1167750
   audioPlayer.load();
@@ -296,6 +334,10 @@ function loadFirstAvailableSong() {
 
 function loadClickedSong(event) {
   let songIdPieces = event.target.id.split("_");
+  if (urlHadSongId) {
+    urlHadSongId = false;
+    currentAlbum = getCurrentAlbumIndex();
+  }
   // Note: the id from the event is actually a string
   // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
   //   /Global_Objects/Number
@@ -342,6 +384,9 @@ prev.addEventListener("click", event => {
   } else {
     loadPrevSong();
   }
+  if (audioState === "playing") {
+    audioState = "paused";
+  }
   const clickEvent = new Event("click");
   currentAudioTime = 0;
   play.dispatchEvent(clickEvent);
@@ -353,10 +398,12 @@ next.addEventListener("click", event => {
   if (repeatOneButtonEnabled) {
     loadSameSong();
   } else if (randomButtonEnabled) {
-    audioState = "stopped";
     loadRandomSong();
   } else {
     loadNextSong();
+  }
+  if (audioState === "playing") {
+    audioState = "paused";
   }
   const clickEvent = new Event("click");
   currentAudioTime = 0;
@@ -423,7 +470,8 @@ function getPrevSong() {
 }
 
 function getNextSong() {
-  if ((currentSongIndex + 1) < data["albums"][currentAlbum]["songs"].length) {
+  let currentAlbumIndex = getCurrentAlbumIndex();
+  if ((currentSongIndex + 1) < data["albums"][currentAlbumIndex]["songs"].length) {
     currentSongIndex++;
   } else {
     currentSongIndex = 0;
@@ -441,6 +489,18 @@ function getSameSong() {
   currentAudioTime = 0;
 }
 
+// See Issue #79
+function getCurrentAlbumIndex() {
+  let foundIndex = 0;
+  for (let i = 0; i < data["albums"].length; i++) {
+    if (data["albums"][i].id == currentAlbum) {
+      foundIndex = i;
+      break;
+    }
+  }
+  return foundIndex;
+}
+
 function getClickedSong(event) {
   // Note: the id from the event is actually a string
   let songIdPieces = event.target.id.split("_");
@@ -453,7 +513,6 @@ function getClickedSong(event) {
   userClickedSongFromList = true;
   loadClickedSong(event);
   const clickEvent = new Event("click");
-  audioState = "paused";
   currentAudioTime = 0;
   play.dispatchEvent(clickEvent);
 }
@@ -461,6 +520,7 @@ function getClickedSong(event) {
 function openAlbum(event, albumId) {
   albumListOpen = true;
   let albumIdPieces = albumId.split("_");
+  currentAlbum = albumIdPieces[1];
   songs = data["albums"][albumIdPieces[1]]["songs"];
   songList.innerHTML = "<ol></ol>";
   let i = 0;
