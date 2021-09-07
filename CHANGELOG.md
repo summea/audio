@@ -1,11 +1,14 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
-## [Unreleased]
+## [1.4.0] - 2021-09-06
 ### Added
 - Alt tag information for album images
 - Lazy loading for offscreen album images
 - Added feature where you can go to a specific album and song via query parameters in URL (Issue #55)
+- Added SQLite database (locally) for album and song data (Issue #74)
+- Added feature to be able to click to prev/next song after using ?songId=n in URL (Issue #78)
+- Added unique ids for songs (Issue #75)
 
 ### Changed
 - Reduced image size to 100x100px for album images to hopefully help reduce load time
