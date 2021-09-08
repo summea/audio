@@ -1,6 +1,13 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
+## [1.4.1] - 2021-09-07
+### Added
+- Feature to load linked song and song title for ?songId=n value (Issue #76)
+
+### Fixed
+- Problem where ?songId=n was not loading on mobile (Issue #80)
+
 ## [1.4.0] - 2021-09-06
 ### Added
 - Alt tag information for album images
