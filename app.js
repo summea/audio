@@ -118,6 +118,35 @@ export function setup() {
     .catch(error => {
         console.error(error);
     });
+
+  if (currentSongId > 0) {
+    // Get song data
+    // ref: https://developer.okta.com/blog/2021/08/02/fix-common-problems-cors
+    // ref: https://developer.mozilla.org/en-US/docs/Web/API/Request/Request
+    const request = new Request(settings["backendUrl"] + "/audio.php?songId=" + currentSongId, {mode: 'cors'});
+    fetch(request)
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Could not get song data.");
+        }
+      })
+      .then(response => {
+        audioPlayer.src = response.songUrl;
+        currentAudioTitleValue = response.name;
+        //currentAlbum = response.albumId;
+        //currentSong = response.id;
+        //currentSongIndex = response.albumSongNumber - 1;
+        currentAudioTitle.innerHTML = currentAudioTitleValue;
+        // ref: https://stackoverflow.com/a/49794011/1167750
+        audioPlayer.load();
+        getSongLength();
+      })
+      .catch(error => {
+          console.error(error);
+      });
+  }
 }
 
 function getCurrentSongTime() {
@@ -192,7 +221,6 @@ play.addEventListener("click", event => {
   let timeChecking;
   // In order to get song length of first song (album: 0, song: 0) on mobile
   getSongLength();
-  console.log(audioState);
   if (audioState === "stopped" || audioState === "paused") {
     audioPlayer.currentTime = currentAudioTime;
     audioState = "playing";
@@ -314,6 +342,10 @@ function loadFirstAvailableSong() {
         currentAlbum = response.albumId;
         currentSong = response.id;
         currentSongIndex = response.albumSongNumber - 1;
+        currentAudioTitle.innerHTML = currentAudioTitleValue;
+        // ref: https://stackoverflow.com/a/49794011/1167750
+        audioPlayer.load();
+        getSongLength();
       })
       .catch(error => {
           console.error(error);
@@ -358,6 +390,9 @@ audioPlayer.addEventListener("canplaythrough", event => {
     getSongLength();
     currentAudioLoading = false;
     return true;
+  }
+  if (urlHadSongId) {
+    audioState = "playing";
   }
   currentAudioLoaded = true;
   const clickEvent = new Event("click");
