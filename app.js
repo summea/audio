@@ -547,6 +547,9 @@ function getClickedSong(event) {
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   userClickedSongFromList = true;
   loadClickedSong(event);
+  if (audioState === "playing") {
+    audioState = "paused";
+  }
   const clickEvent = new Event("click");
   currentAudioTime = 0;
   play.dispatchEvent(clickEvent);
