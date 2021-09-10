@@ -172,7 +172,11 @@ function getCurrentSongTime() {
   if (currentAudioTimeLeftPieces.seconds < 10) {
     secondsLeftWithPadding = "0" + currentAudioTimeLeftPieces.seconds;
   }
-  currentAudioTimeLengthBox.innerHTML = "-"+minutesLeftWithPadding+":"+secondsLeftWithPadding;
+  if (currentAudioTimeLength > 0) {
+    currentAudioTimeLengthBox.innerHTML = "-"+minutesLeftWithPadding+":"+secondsLeftWithPadding;
+  } else {
+    currentAudioTimeLengthBox.innerHTML = "&nbsp;00:00";
+  }
 }
 
 function getSongLength() {
