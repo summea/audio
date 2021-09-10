@@ -162,6 +162,17 @@ function getCurrentSongTime() {
     secondsWithPadding = "0" + currentAudioTimePieces.seconds;
   }
   currentAudioTimeBox.innerHTML = minutesWithPadding+":"+secondsWithPadding;
+
+  let currentAudioTimeLeftPieces = convertSecToMin(currentAudioTimeLength - currentAudioTime);
+  let minutesLeftWithPadding = currentAudioTimeLeftPieces.minutes;
+  if (currentAudioTimeLeftPieces.minutes < 10) {
+    minutesLeftWithPadding = "0" + currentAudioTimeLeftPieces.minutes;
+  }
+  let secondsLeftWithPadding = currentAudioTimeLeftPieces.seconds;
+  if (currentAudioTimeLeftPieces.seconds < 10) {
+    secondsLeftWithPadding = "0" + currentAudioTimeLeftPieces.seconds;
+  }
+  currentAudioTimeLengthBox.innerHTML = "-"+minutesLeftWithPadding+":"+secondsLeftWithPadding;
 }
 
 function getSongLength() {
@@ -182,7 +193,7 @@ function getSongLength() {
   if (currentAudioTimeLengthPieces.seconds < 10) {
     secondsLengthWithPadding = "0" + currentAudioTimeLengthPieces.seconds;
   }
-  currentAudioTimeLengthBox.innerHTML = minutesLengthWithPadding+":"+secondsLengthWithPadding;
+  currentAudioTimeLengthBox.innerHTML = "&nbsp;"+minutesLengthWithPadding+":"+secondsLengthWithPadding;
   return currentAudioTimeLength;
 }
 
