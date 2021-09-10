@@ -2,6 +2,9 @@
 A place to keep track of changes for this audio project.
 
 ## [Unreleased]
+### Added
+- Song countdown time as per J's suggestion (Issue #54)
+
 ### Fixed
 - Bug related to unintentional play/pause when clicking on song in "Song List" (Issue #83)
 
