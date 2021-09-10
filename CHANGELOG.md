@@ -1,6 +1,10 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
+## [Unreleased]
+### Fixed
+- Bug related to unintentional play/pause when clicking on song in "Song List" (Issue #83)
+
 ## [1.4.1] - 2021-09-07
 ### Added
 - Feature to load linked song and song title for ?songId=n value (Issue #76)
