@@ -315,8 +315,8 @@ function loadPrevSong() {
     currentAlbum = getCurrentAlbumIndex();
   }
   if (randomButtonEnabled) {
-    audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSongIndex].url;
-    currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSongIndex].name;
+    audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSong].url;
+    currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSong].name;
   } else {
     audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSongIndex].url;
     currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSongIndex].name;
@@ -504,7 +504,9 @@ function convertSecToMin(seconds) {
 function getPrevSong() {
   currentAudioTime = 0;
   if (randomButtonEnabled) {
-    lastPlayedSongs.pop();
+    if (lastPlayedSongs.length > 1) {
+      lastPlayedSongs.pop();
+    }
     currentAlbum = lastPlayedSongs[lastPlayedSongs.length-1].currentAlbum;
     currentSong = lastPlayedSongs[lastPlayedSongs.length-1].currentSong;
     return true;
@@ -530,8 +532,8 @@ function getNextSong() {
   // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
   //   /Global_Objects/Array
   lastPlayedSongs.push({
-    "currentAlbum": currentAlbum,
-    "currentSong": currentSong
+    "currentAlbum": currentAlbumIndex,
+    "currentSong": currentSongIndex
   });
 }
 
