@@ -276,6 +276,8 @@ function getKeyboardKey(event) {
 }
 
 // ref: https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
+// ref: https://www.codicode.com/art
+//   /easy_way_to_add_touch_support_to_your_website.aspx
 document.addEventListener("touchmove", handleMove, false);
 
 function handleMove(event) {
