@@ -48,6 +48,7 @@ let lastPlayedSongs = [];
 // ref: https://developer.mozilla.org/en-US/docs/Web/API/Window/location
 let queryStringParams = new URLSearchParams(location.search);
 let urlHadSongId = false;
+let lastTouchX = 0;
 
 export function setup() {
   // ref: https://stackoverflow.com/a/53069733/1167750
@@ -272,6 +273,75 @@ function getKeyboardKey(event) {
     const clickEvent = new Event("click");
     play.dispatchEvent(clickEvent);
   }
+}
+
+// ref: https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
+document.addEventListener("touchmove", handleMove, false);
+
+function handleMove(event) {
+  //event.preventDefault();
+  let touches = event.changedTouches;
+  let scrollXDirection = '';
+  if (lastTouchX > touches[0].clientX) {
+    scrollXDirection = 'rtl';
+  } else {
+    scrollXDirection = 'ltr';
+  }
+
+  let albums = albumList.getElementsByTagName('li');
+  if (scrollXDirection === 'rtl') {
+    // ref: https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API
+    //   /Keyframe_Formats
+    // ref: https://www.designcise.com/web/tutorial
+    //   /how-to-stop-on-the-last-frame-when-a-css-animation-ends
+    // ref: https://developer.mozilla.org/en-US/docs/Web/API/Animation/persist
+    // ref: https://www.sitepoint.com/community/t
+    //   /keyframes-how-to-prevent-animation-resetting-to-the-first-frame/249925
+    if (albumsX > 0) {
+      albumsX = -100;
+      return false;
+    }
+    albumsX -= 10;
+    albums[0].animate(
+      {
+        // from
+        marginLeft: albumsX + "px",
+      },
+      {
+        // to
+        marginLeft: (albumsX + 10) + "px",
+        duration: 300,
+        fill: "forwards"
+      }
+    );
+  } else {
+    // ref: https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API
+    //   /Keyframe_Formats
+    // ref: https://www.designcise.com/web/tutorial
+    //   /how-to-stop-on-the-last-frame-when-a-css-animation-ends
+    // ref: https://developer.mozilla.org/en-US/docs/Web/API/Animation/persist
+    // ref: https://www.sitepoint.com/community/t
+    //   /keyframes-how-to-prevent-animation-resetting-to-the-first-frame/249925
+    if (albumsX < -(albums.length * 100)) {
+      albumsX = -(albums.length * 100);
+      return false;
+    }
+    albumsX += 10;
+    albums[0].animate(
+      {
+        // from
+        marginLeft: albumsX + "px",
+      },
+      {
+        // to
+        marginLeft: (albumsX + 10) + "px",
+        duration: 300,
+        fill: "forwards"
+      }
+    );
+  }
+
+  lastTouchX = touches[0].clientX;
 }
 
 function loadRandomSong() {
