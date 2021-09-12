@@ -281,8 +281,10 @@ function getKeyboardKey(event) {
 document.addEventListener("touchmove", handleMove, false);
 
 function handleMove(event) {
-  //event.preventDefault();
   let touches = event.changedTouches;
+  if (touches[0].clientY < 180 || touches[0].clientY > 280) {
+    return false;
+  }
   let scrollXDirection = '';
   if (lastTouchX > touches[0].clientX) {
     scrollXDirection = 'rtl';
