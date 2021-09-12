@@ -299,11 +299,11 @@ function handleMove(event) {
     // ref: https://developer.mozilla.org/en-US/docs/Web/API/Animation/persist
     // ref: https://www.sitepoint.com/community/t
     //   /keyframes-how-to-prevent-animation-resetting-to-the-first-frame/249925
-    if (albumsX > 0) {
+    if (albumsX > -100) {
       albumsX = -100;
       return false;
     }
-    albumsX -= 10;
+    albumsX -= 5;
     albums[0].animate(
       {
         // from
@@ -328,7 +328,7 @@ function handleMove(event) {
       albumsX = -(albums.length * 100);
       return false;
     }
-    albumsX += 10;
+    albumsX += 5;
     albums[0].animate(
       {
         // from
