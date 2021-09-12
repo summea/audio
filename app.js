@@ -282,10 +282,11 @@ document.addEventListener("touchmove", handleMove, false);
 
 function handleMove(event) {
   let touches = event.changedTouches;
-  if (touches[0].clientY < 180 || touches[0].clientY > 280) {
+  let scrollXDirection = '';
+  // ref: https://developer.mozilla.org/en-US/docs/Web/API/Touch/target
+  if (touches[0].target.className !== "albumCoverImage") {
     return false;
   }
-  let scrollXDirection = '';
   if (lastTouchX > touches[0].clientX) {
     scrollXDirection = 'rtl';
   } else {
