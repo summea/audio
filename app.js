@@ -102,7 +102,7 @@ export function setup() {
         }
         albumCoverImage.alt = linkText;
         link.appendChild(albumCoverImage);
-        link.id = "album_" + i;
+        link.id = "album_" + album.id;
         link.href = album.url;
         link.className = "album";
         link.append(linkText);
@@ -375,8 +375,9 @@ function loadNextSong() {
     urlHadSongId = false;
     currentAlbum = getCurrentAlbumIndex();
   }
-  audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSongIndex].url;
-  currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSongIndex].name;
+  let currentAlbumIndex = getCurrentAlbumIndex();
+  audioPlayer.src = data["albums"][currentAlbumIndex]["songs"][currentSongIndex].url;
+  currentAudioTitleValue = data["albums"][currentAlbumIndex]["songs"][currentSongIndex].name;
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   // ref: https://stackoverflow.com/a/49794011/1167750
   audioPlayer.load();
@@ -651,7 +652,8 @@ function openAlbum(event, albumId) {
   albumListOpen = true;
   let albumIdPieces = albumId.split("_");
   currentAlbum = albumIdPieces[1];
-  songs = data["albums"][albumIdPieces[1]]["songs"];
+  let currentAlbumIndex = getCurrentAlbumIndex();
+  songs = data["albums"][currentAlbumIndex]["songs"];
   songList.innerHTML = "<ol></ol>";
   let i = 0;
   songs.forEach(song => {
