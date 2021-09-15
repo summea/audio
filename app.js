@@ -390,12 +390,13 @@ function loadPrevSong() {
     urlHadSongId = false;
     currentAlbum = getCurrentAlbumIndex();
   }
+  let currentAlbumIndex = getCurrentAlbumIndex();
   if (randomButtonEnabled) {
-    audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSong].url;
-    currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSong].name;
+    audioPlayer.src = data["albums"][currentAlbumIndex]["songs"][currentSong].url;
+    currentAudioTitleValue = data["albums"][currentAlbumIndex]["songs"][currentSong].name;
   } else {
-    audioPlayer.src = data["albums"][currentAlbum]["songs"][currentSongIndex].url;
-    currentAudioTitleValue = data["albums"][currentAlbum]["songs"][currentSongIndex].name;
+    audioPlayer.src = data["albums"][currentAlbumIndex]["songs"][currentSongIndex].url;
+    currentAudioTitleValue = data["albums"][currentAlbumIndex]["songs"][currentSongIndex].name;
   }
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   // ref: https://stackoverflow.com/a/49794011/1167750
