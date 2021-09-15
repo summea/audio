@@ -10,6 +10,7 @@ A place to keep track of changes for this audio project.
 - Bug related to unintentional play/pause when clicking on song in "Song List" (Issue #83)
 - NaN bug related to countdown time getting to 0 or maybe lower (Issue #84)
 - Bug related to losing previous song stack when random mode on (Issue #85)
+- Bug related to which current album is currently selected which affected how many songs could be played on a given album (Issue #87)
 
 ## [1.4.1] - 2021-09-07
 ### Added
