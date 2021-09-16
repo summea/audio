@@ -162,7 +162,7 @@ function getCurrentSongTime() {
   if (currentAudioTimePieces.seconds < 10) {
     secondsWithPadding = "0" + currentAudioTimePieces.seconds;
   }
-  currentAudioTimeBox.innerHTML = minutesWithPadding+":"+secondsWithPadding;
+  currentAudioTimeBox.innerHTML = minutesWithPadding+":"+secondsWithPadding+"&nbsp;";
 
   let currentAudioTimeLeftPieces = convertSecToMin(currentAudioTimeLength - currentAudioTime);
   let minutesLeftWithPadding = currentAudioTimeLeftPieces.minutes;
