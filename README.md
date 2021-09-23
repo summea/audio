@@ -9,3 +9,8 @@ This project started out as a way to make some past music recordings of mine mor
 3. `cp $HOME/settings.js modules/`
 
 Note: That last step is used to copy over a local settings.js file to the modules folder.
+
+## Testing
+1. `cd` to audio project directory
+2. `./node_modules/mocha/bin/mocha`
+
