@@ -5,6 +5,9 @@ A place to keep track of changes for this audio project.
 ### Added
 - Song countdown time as per J's suggestion (Issue #54)
 - Swipe feature for albums list (Issue #82)
+- Unit test for `convertSecToMin()` (Issue #91)
+- Utility related module (Issue #92)
+- Package files
 
 ### Fixed
 - Bug related to unintentional play/pause when clicking on song in "Song List" (Issue #83)
