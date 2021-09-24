@@ -14,3 +14,32 @@ export function convertSecToMin(seconds) {
   }
   return result;
 }
+
+export function getCurrentSongTimeDisplay(currentTime) {
+  let ctPieces = convertSecToMin(currentTime);
+  let minWithPad = ctPieces.minutes;
+  if (ctPieces.minutes < 10) {
+    minWithPad = "0" + ctPieces.minutes;
+  }
+  let secWithPad = ctPieces.seconds;
+  if (ctPieces.seconds < 10) {
+    secWithPad = "0" + ctPieces.seconds;
+  }
+  return minWithPad+":"+secWithPad+"&nbsp;";
+}
+
+export function getCurrentSongTimeLengthDisplay(currentTime, songLength) {
+  let ctlPieces = convertSecToMin(songLength - currentTime);
+  let minLeftWithPad = ctlPieces.minutes;
+  if (ctlPieces.minutes < 10) {
+    minLeftWithPad = "0" + ctlPieces.minutes;
+  }
+  let secLeftWithPad = ctlPieces.seconds;
+  if (ctlPieces.seconds < 10) {
+    secLeftWithPad = "0" + ctlPieces.seconds;
+  }
+  if (songLength > 0 && currentTime != songLength) {
+    return "-"+minLeftWithPad+":"+secLeftWithPad;
+  }
+  return "&nbsp;00:00";
+}
