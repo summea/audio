@@ -1,13 +1,20 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
-## [Unreleased]
+## [1.5.0] - 2021-09-23
 ### Added
 - Song countdown time as per J's suggestion (Issue #54)
 - Swipe feature for albums list (Issue #82)
 - Unit test for `convertSecToMin()` (Issue #91)
 - Utility related module (Issue #92)
 - Package files
+- Unit tests for `getCurrentSongTimeDisplay()` (Issue #93)
+- Unit tests for `getCurrentSongTimeLengthDisplay()` (Issue #94)
+
+### Changed
+- Reduced length of some variable names
+- Broke out `getCurrentSongTime()` to `modules/utility.js` as `getCurrentSongTimeDisplay()` and `getCurrentSongTimeLengthDisplay()` functions
+- Some variable naming in `app.js` for now to hopefully make it simpler
 
 ### Fixed
 - Bug related to unintentional play/pause when clicking on song in "Song List" (Issue #83)
