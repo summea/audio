@@ -1,6 +1,10 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
+## [1.5.1] - 2021-09-23
+### Fixed
+- Bug: Unable to move slider handle on audio player (Issue #96)
+
 ## [1.5.0] - 2021-09-23
 ### Added
 - Song countdown time as per J's suggestion (Issue #54)
