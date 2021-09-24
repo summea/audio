@@ -1,7 +1,11 @@
 // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide
 //   /Modules
 import { settings } from "./modules/settings.js";
-import { convertSecToMin } from "./modules/utility.js";
+import {
+  convertSecToMin,
+  getCurrentSongTimeDisplay,
+  getCurrentSongTimeLengthDisplay
+} from "./modules/utility.js";
 
 // ref: https://developer.mozilla.org/en-US/docs/MDN/Guidelines
 //   /Code_guidelines
@@ -26,7 +30,6 @@ let currentSong = 0;
 let currentSongId = 0;
 let userClickedSongFromList = false;
 let audioState = "stopped";
-let currentAudioTime = 0;
 let currentAudioTimeLength = 0;
 let currentAudioTitle = document.getElementById("currentAudioTitle");
 let currentAudioTitleValue = "";
@@ -143,64 +146,12 @@ export function setup() {
         currentAudioTitle.innerHTML = currentAudioTitleValue;
         // ref: https://stackoverflow.com/a/49794011/1167750
         audioPlayer.load();
-        getSongLength();
+        getCurrentSongTimeLengthDisplay(audioPlayer.currentTime, audioPlayer.duration);
       })
       .catch(error => {
           console.error(error);
       });
   }
-}
-
-function getCurrentSongTime() {
-  currentAudioTime = audioPlayer.currentTime;
-  audioPlayerSlider.value = currentAudioTime;
-  let currentAudioTimePieces = convertSecToMin(currentAudioTime);
-  let minutesWithPadding = currentAudioTimePieces.minutes;
-  if (currentAudioTimePieces.minutes < 10) {
-    minutesWithPadding = "0" + currentAudioTimePieces.minutes;
-  }
-  let secondsWithPadding = currentAudioTimePieces.seconds;
-  if (currentAudioTimePieces.seconds < 10) {
-    secondsWithPadding = "0" + currentAudioTimePieces.seconds;
-  }
-  currentAudioTimeBox.innerHTML = minutesWithPadding+":"+secondsWithPadding+"&nbsp;";
-
-  let currentAudioTimeLeftPieces = convertSecToMin(currentAudioTimeLength - currentAudioTime);
-  let minutesLeftWithPadding = currentAudioTimeLeftPieces.minutes;
-  if (currentAudioTimeLeftPieces.minutes < 10) {
-    minutesLeftWithPadding = "0" + currentAudioTimeLeftPieces.minutes;
-  }
-  let secondsLeftWithPadding = currentAudioTimeLeftPieces.seconds;
-  if (currentAudioTimeLeftPieces.seconds < 10) {
-    secondsLeftWithPadding = "0" + currentAudioTimeLeftPieces.seconds;
-  }
-  if (currentAudioTimeLength > 0) {
-    currentAudioTimeLengthBox.innerHTML = "-"+minutesLeftWithPadding+":"+secondsLeftWithPadding;
-  } else {
-    currentAudioTimeLengthBox.innerHTML = "&nbsp;00:00";
-  }
-}
-
-function getSongLength() {
-  currentAudioTimeLength = audioPlayer.duration;
-  audioPlayerSlider.max = currentAudioTimeLength;
-  let currentAudioTimeLengthPieces = convertSecToMin(currentAudioTimeLength);
-  let minutesLengthWithPadding = "00";
-  if (Number.isInteger(currentAudioTimeLengthPieces.minutes)) {
-    minutesLengthWithPadding = currentAudioTimeLengthPieces.minutes;
-  }
-  if (currentAudioTimeLengthPieces.minutes < 10) {
-    minutesLengthWithPadding = "0" + currentAudioTimeLengthPieces.minutes;
-  }
-  let secondsLengthWithPadding = "00";
-  if (Number.isInteger(currentAudioTimeLengthPieces.seconds)) {
-    secondsLengthWithPadding = currentAudioTimeLengthPieces.seconds;
-  }
-  if (currentAudioTimeLengthPieces.seconds < 10) {
-    secondsLengthWithPadding = "0" + currentAudioTimeLengthPieces.seconds;
-  }
-  currentAudioTimeLengthBox.innerHTML = "&nbsp;"+minutesLengthWithPadding+":"+secondsLengthWithPadding;
-  return currentAudioTimeLength;
 }
 
 function playbackTimeUpdate(event) {
@@ -237,20 +188,30 @@ play.addEventListener("click", event => {
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   let timeChecking;
   // In order to get song length of first song (album: 0, song: 0) on mobile
-  getSongLength();
+  getCurrentSongTimeLengthDisplay(audioPlayer.currentTime, audioPlayer.duration);
   if (audioState === "stopped" || audioState === "paused") {
-    audioPlayer.currentTime = currentAudioTime;
+    //audioPlayer.currentTime = currentAudioTime;
     audioState = "playing";
     // ref: https://developers.google.com/web/updates/2017/06/
     //   /play-request-was-interrupted
     playPromise = audioPlayer.play();
     // ref: https://developer.mozilla.org/en-US/docs/Web/API
     //   /WindowOrWorkerGlobalScope/setInterval
-    timeChecking = setInterval(getCurrentSongTime, 1000);
+    timeChecking = setInterval(
+      function() {
+        currentAudioTimeBox.innerHTML =
+          getCurrentSongTimeDisplay(audioPlayer.currentTime);
+        currentAudioTimeLengthBox.innerHTML =
+          getCurrentSongTimeLengthDisplay(
+            audioPlayer.currentTime,
+            audioPlayer.duration
+          );
+      },
+      1000
+    );
     // ref: Example from Chrome audio player
     play.innerHTML = pauseButton;
   } else {
-    audioPlayer.currentTime = currentAudioTime;
     audioState = "paused";
     audioPlayer.pause();
     clearInterval(timeChecking);
@@ -264,11 +225,11 @@ document.addEventListener("keydown", getKeyboardKey);
 function getKeyboardKey(event) {
   if (event.code === "ArrowLeft") {
     const clickEvent = new Event("click");
-    currentAudioTime = 0;
+    audioPlayer.currentTime = 0;
     prev.dispatchEvent(clickEvent);    
   } else if (event.code === "ArrowRight") {
     const clickEvent = new Event("click");
-    currentAudioTime = 0;
+    audioPlayer.currentTime = 0;
     next.dispatchEvent(clickEvent);    
   } else if (event.code === "Space") {
     const clickEvent = new Event("click");
@@ -360,14 +321,14 @@ function loadRandomSong() {
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   // ref: https://stackoverflow.com/a/49794011/1167750
   audioPlayer.load();
-  getSongLength();
+  getCurrentSongTimeLengthDisplay(audioPlayer.currentTime, audioPlayer.duration);
 }
 
 function loadSameSong() {
   getSameSong();
   // ref: https://stackoverflow.com/a/49794011/1167750
   audioPlayer.load();
-  getSongLength();
+  getCurrentSongTimeLengthDisplay(audioPlayer.currentTime, audioPlayer.duration);
 }
 
 function loadNextSong() {
@@ -382,7 +343,7 @@ function loadNextSong() {
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   // ref: https://stackoverflow.com/a/49794011/1167750
   audioPlayer.load();
-  getSongLength();
+  getCurrentSongTimeLengthDisplay(audioPlayer.currentTime, audioPlayer.duration);
 }
 
 function loadPrevSong() {
@@ -402,7 +363,7 @@ function loadPrevSong() {
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   // ref: https://stackoverflow.com/a/49794011/1167750
   audioPlayer.load();
-  getSongLength();
+  getCurrentSongTimeLengthDisplay(audioPlayer.currentTime, audioPlayer.duration);
 }
 
 function loadFirstAvailableSong() {
@@ -438,7 +399,7 @@ function loadFirstAvailableSong() {
         currentAudioTitle.innerHTML = currentAudioTitleValue;
         // ref: https://stackoverflow.com/a/49794011/1167750
         audioPlayer.load();
-        getSongLength();
+        getCurrentSongTimeLengthDisplay(audioPlayer.currentTime, audioPlayer.duration);
       })
       .catch(error => {
           console.error(error);
@@ -454,7 +415,7 @@ function loadFirstAvailableSong() {
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   // ref: https://stackoverflow.com/a/49794011/1167750
   audioPlayer.load();
-  getSongLength();
+  getCurrentSongTimeLengthDisplay(audioPlayer.currentTime, audioPlayer.duration);
 }
 
 function loadClickedSong(event) {
@@ -472,7 +433,7 @@ function loadClickedSong(event) {
   currentAudioTitle.innerHTML = currentAudioTitleValue;
   // ref: https://stackoverflow.com/a/49794011/1167750
   audioPlayer.load();
-  getSongLength();
+  getCurrentSongTimeLengthDisplay(audioPlayer.currentTime, audioPlayer.duration);
 }
 
 // Get length of current song once song can be played without buffering
@@ -480,7 +441,7 @@ function loadClickedSong(event) {
 //   /canplaythrough_event
 audioPlayer.addEventListener("canplaythrough", event => {
   if (currentAudioLoaded) {
-    getSongLength();
+    getCurrentSongTimeLengthDisplay(audioPlayer.currentTime, audioPlayer.duration);
     currentAudioLoading = false;
     return true;
   }
@@ -489,7 +450,7 @@ audioPlayer.addEventListener("canplaythrough", event => {
   }
   currentAudioLoaded = true;
   const clickEvent = new Event("click");
-  currentAudioTime = 0;
+  audioPlayer.currentTime = 0;
   play.dispatchEvent(clickEvent);
 });
 
@@ -516,7 +477,7 @@ prev.addEventListener("click", event => {
     audioState = "paused";
   }
   const clickEvent = new Event("click");
-  currentAudioTime = 0;
+  audioPlayer.currentTime = 0;
   play.dispatchEvent(clickEvent);
 });
 
@@ -534,7 +495,7 @@ next.addEventListener("click", event => {
     audioState = "paused";
   }
   const clickEvent = new Event("click");
-  currentAudioTime = 0;
+  audioPlayer.currentTime = 0;
   play.dispatchEvent(clickEvent);
 });
 
@@ -563,7 +524,7 @@ repeatOne.addEventListener("click", event => {
 });
 
 function getPrevSong() {
-  currentAudioTime = 0;
+  audioPlayer.currentTime = 0;
   if (randomButtonEnabled) {
     if (lastPlayedSongs.length > 1) {
       lastPlayedSongs.pop();
@@ -589,7 +550,7 @@ function getNextSong() {
   } else {
     currentSongIndex = 0;
   }
-  currentAudioTime = 0;
+  audioPlayer.currentTime = 0;
   // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
   //   /Global_Objects/Array
   lastPlayedSongs.push({
@@ -599,7 +560,7 @@ function getNextSong() {
 }
 
 function getSameSong() {
-  currentAudioTime = 0;
+  audioPlayer.currentTime = 0;
 }
 
 // See Issue #79
@@ -629,7 +590,7 @@ function getClickedSong(event) {
     audioState = "paused";
   }
   const clickEvent = new Event("click");
-  currentAudioTime = 0;
+  audioPlayer.currentTime = 0;
   play.dispatchEvent(clickEvent);
 }
 
