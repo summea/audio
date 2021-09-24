@@ -1,6 +1,10 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
+## [1.5.2] - 2021-09-23
+### Fixed
+- Bug: Song duration length not very accurate at times (Issue #97)
+
 ## [1.5.1] - 2021-09-23
 ### Fixed
 - Bug: Unable to move slider handle on audio player (Issue #96)

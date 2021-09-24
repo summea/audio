@@ -192,7 +192,6 @@ play.addEventListener("click", event => {
   if (audioState === "stopped" || audioState === "paused") {
     //audioPlayer.currentTime = currentAudioTime;
     audioState = "playing";
-    audioPlayerSlider.max = audioPlayer.duration;
     // ref: https://developers.google.com/web/updates/2017/06/
     //   /play-request-was-interrupted
     playPromise = audioPlayer.play();
@@ -443,6 +442,7 @@ function loadClickedSong(event) {
 //   /canplaythrough_event
 audioPlayer.addEventListener("canplaythrough", event => {
   if (currentAudioLoaded) {
+    audioPlayerSlider.max = audioPlayer.duration;
     getCurrentSongTimeLengthDisplay(audioPlayer.currentTime, audioPlayer.duration);
     currentAudioLoading = false;
     return true;
