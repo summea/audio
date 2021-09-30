@@ -1,6 +1,10 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
+## [Unreleased]
+### Fixed
+- Bug: Unable to move slider for first song on Safari browser (Issue #98)
+
 ## [1.5.2] - 2021-09-23
 ### Fixed
 - Bug: Song duration length not very accurate at times (Issue #97)
