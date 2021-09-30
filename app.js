@@ -369,10 +369,6 @@ function loadPrevSong() {
 
 function loadFirstAvailableSong() {
   if (firstPlay) {
-    if (!queryStringParams.has("albumId")) {
-      currentAlbum = 0;
-      currentSongIndex = 0;
-    }
     if (!queryStringParams.has("songId")) {
       currentSong = 0;
       currentSongIndex = 0;
@@ -451,6 +447,9 @@ audioPlayer.addEventListener("canplaythrough", event => {
     audioState = "playing";
   }
   currentAudioLoaded = true;
+  audioPlayerSlider.max = audioPlayer.duration;
+  getCurrentSongTimeLengthDisplay(audioPlayer.currentTime, audioPlayer.duration);
+  currentAudioLoading = false;
   const clickEvent = new Event("click");
   audioPlayer.currentTime = 0;
   play.dispatchEvent(clickEvent);
