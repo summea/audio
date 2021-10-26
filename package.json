@@ -1,5 +1,11 @@
 {
   "name": "audio",
   "version": "1.4.1",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "selenium-webdriver": "^4.0.0-rc-2"
+  },
+  "devDependencies": {
+    "mocha": "^9.1.3"
+  }
 }
