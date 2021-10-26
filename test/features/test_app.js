@@ -5,8 +5,8 @@ import {Builder, By, Key, until} from "selenium-webdriver"
 
 describe('testPlayButtonAndSliderMove', function() {
   it('Should push play button and check that slider moves', async function() {
-    this.timeout(5000);
-    let result = await (async function testPlayButtonAndSliderMove() {
+    this.timeout(10000);
+    let result = await (async function() {
       let driver = await new Builder().forBrowser("safari").build();
       try {
         await driver.get("http://127.0.0.1:8080/audio");
@@ -26,7 +26,9 @@ describe('testPlayButtonAndSliderMove', function() {
         await driver.wait(driver.executeScript('arguments[0].click();', play));
         // ref: https://www.selenium.dev/selenium/docs/api/javascript/module
         //   /selenium-webdriver/lib/until.html
-        await driver.wait(function() {
+        // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+        //   /Reference/Operators/await
+        return await driver.wait(function() {
           let aps = driver.findElement(By.id("audioPlayerSlider"));
           // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript
           // /Reference/Global_Objects/Promise
@@ -38,20 +40,16 @@ describe('testPlayButtonAndSliderMove', function() {
               }
             })
             .catch(err => {
-              console.log(err);
+              return false;
             });
         }, 3000);
       } catch(err) {
-        console.log(err);
+        return false;
       } finally {
         await driver.quit();
       }
     })();
 
-    // #TODO: This isn't quite working, yet
-    await result.then(value => {
-    console.log(value);
-      assert.equal(value, true);
-    });
+    assert.equal(result, true);
   });
 });
