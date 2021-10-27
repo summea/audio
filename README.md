@@ -12,5 +12,6 @@ Note: That last step is used to copy over a local settings.js file to the module
 
 ## Testing
 1. `cd` to audio project directory
-2. `./node_modules/mocha/bin/mocha`
+2. `./node_modules/mocha/bin/mocha test --recursive`
 
+- ref: https://mochajs.org/#the-test-directory
