@@ -2,6 +2,9 @@
 A place to keep track of changes for this audio project.
 
 ## [Unreleased]
+### Added
+- Feature test to ensure that audio player play button starts song play and to see if the audio player slider bar moves (Issue #99)
+
 ### Fixed
 - Bug: Unable to move slider for first song on Safari browser (Issue #98)
 
