@@ -5,6 +5,7 @@ import {Builder, By, Key, until} from "selenium-webdriver"
 
 describe('testPlayButtonAndSliderMove', function() {
   it('Should push play button and check that slider moves', async function() {
+    // ref: https://github.com/mochajs/mocha/issues/2025
     this.timeout(10000);
     let result = await (async function() {
       let driver = await new Builder().forBrowser("safari").build();
