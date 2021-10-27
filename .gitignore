@@ -2,3 +2,4 @@
 modules/settings.js
 *.db
 node_modules
+geckodriver.log

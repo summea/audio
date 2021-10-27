@@ -4,7 +4,7 @@ import {
   convertSecToMin,
   getCurrentSongTimeDisplay,
   getCurrentSongTimeLengthDisplay
-} from "../modules/utility.js"
+} from "../../modules/utility.js"
 
 describe('convertSecToMin', function() {
   it('Should show 1 minute when given 60 seconds', function() {
