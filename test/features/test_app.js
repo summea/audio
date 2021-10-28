@@ -4,7 +4,7 @@ import assert from "assert"
 import {Builder, By, Key, until} from "selenium-webdriver"
 
 describe('testPlayButtonAndSliderMove', function() {
-  it('Should push play button and check that slider moves', async function() {
+  it('Should push "play" button and check that slider moves', async function() {
     // ref: https://github.com/mochajs/mocha/issues/2025
     this.timeout(10000);
     let result = await (async function() {
@@ -56,7 +56,7 @@ describe('testPlayButtonAndSliderMove', function() {
 });
 
 describe('testRandomButtonOnAndThenPlayButton', function() {
-  it('Should push random button, push play button, and verify song playback',
+  it('Should push "random" and then "play" buttons and verify song playback',
       async function() {
     // ref: https://github.com/mochajs/mocha/issues/2025
     this.timeout(10000);
