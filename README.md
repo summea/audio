@@ -1,7 +1,9 @@
 # Audio
-A simple audio player.
+A simple, web-based audio player.
 
 This project started out as a way to make some past music recordings of mine more accessible. A lot of the music has been available online for a while, but it might be hard to access. This project gives people the ability to hear more songs in an easier format.
+
+For now, this is a personal project that is specific to my current use case. There are probably better ways to build this type of application, but I'm trying to use a simple approach for the time being and have been learning a lot along the journey!
 
 ## Deployment on Personal Website
 1. `git fetch origin`
