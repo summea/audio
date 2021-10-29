@@ -6,7 +6,8 @@ import {
   getCurrentSongTimeLengthDisplay
 } from "./modules/utility.js";
 
-// ref: https://developer.mozilla.org/en-US/docs/MDN/Guidelines/Code_guidelines //   /JavaScript
+// ref: https://developer.mozilla.org/en-US/docs/MDN/Guidelines/Code_guidelines 
+//   /JavaScript
 let currentSongIndex = 0;
 let albums = [];
 let songs = [];
