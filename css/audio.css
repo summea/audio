@@ -11,6 +11,8 @@
 
 .albumDiv {
   padding: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
   flex: auto;
   text-align: center;
   align-items: center;
@@ -32,6 +34,8 @@
   flex: auto;
   width: 320px;
   overflow: hidden;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 #albumList ul li {
@@ -181,4 +185,14 @@ body {
 
 #songList {
   font-family: 'Inconsolata', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#songList ol {
+  margin-top: 0px;
+}
+
+.audioLabel {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 1em;
 }
