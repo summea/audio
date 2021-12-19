@@ -187,6 +187,7 @@ body {
 #songList {
   font-family: 'Inconsolata', "Helvetica Neue", Helvetica, Arial, sans-serif;
   columns: 2;
+  column-gap: 0px;
   margin-bottom: 10px;
 }
 
