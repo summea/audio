@@ -9,6 +9,7 @@ A place to keep track of changes for this audio project.
 
 ### Changed
 - Updated some code formatting conventions
+- Removed column gap in CSS for album song list (Issue #107)
 
 ### Fixed
 - Bug: Unable to move slider for first song on Safari browser (Issue #98)
