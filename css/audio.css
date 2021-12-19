@@ -183,8 +183,11 @@ body {
   color: #f00;
 }
 
+/* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/columns */
 #songList {
   font-family: 'Inconsolata', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  columns: 2;
+  margin-bottom: 10px;
 }
 
 #songList ol {
