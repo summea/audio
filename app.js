@@ -60,8 +60,8 @@ export function setup() {
   //   /GlobalEventHandlers/oninput
   audioPlayerSlider.oninput = playbackTimeUpdate;
 
-  prevAlbumButton.innerHTML = prevAlbumButtonSvg;
-  nextAlbumButton.innerHTML = nextAlbumButtonSvg;
+  prevAlbumButton.innerHTML = '<i class="bi bi-caret-left-fill"></i>'; 
+  nextAlbumButton.innerHTML = '<i class="bi bi-caret-right-fill"></i>';
 
   if (queryStringParams.has("songId")) {
     urlHadSongId = true;
