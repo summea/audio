@@ -12,6 +12,7 @@ A place to keep track of changes for this audio project.
 - Removed column gap in CSS for album song list (Issue #107)
 
 ### Fixed
+- Bug: Disappearing album images on first page load on Safari browser on mobile (Issue #96)
 - Bug: Unable to move slider for first song on Safari browser (Issue #98)
 
 ## [1.5.2] - 2021-09-23
