@@ -60,8 +60,8 @@ export function setup() {
   //   /GlobalEventHandlers/oninput
   audioPlayerSlider.oninput = playbackTimeUpdate;
 
-  prevAlbumButton.innerHTML = prevAlbumButtonSvg;
-  nextAlbumButton.innerHTML = nextAlbumButtonSvg;
+  prevAlbumButton.innerHTML = '<i class="bi bi-caret-left-fill"></i>'; 
+  nextAlbumButton.innerHTML = '<i class="bi bi-caret-right-fill"></i>';
 
   if (queryStringParams.has("songId")) {
     urlHadSongId = true;
@@ -243,15 +243,13 @@ document.addEventListener("touchmove", handleMove, false);
 
 function handleMove(event) {
   let touches = event.changedTouches;
-  let scrollXDirection = '';
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/Touch/target
   if (touches[0].target.className !== "albumCoverImage") {
     return false;
   }
+  let scrollXDirection = 'ltr';
   if (lastTouchX > touches[0].clientX) {
     scrollXDirection = 'rtl';
-  } else {
-    scrollXDirection = 'ltr';
   }
 
   let albums = albumList.getElementsByTagName('li');
