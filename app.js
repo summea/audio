@@ -243,15 +243,13 @@ document.addEventListener("touchmove", handleMove, false);
 
 function handleMove(event) {
   let touches = event.changedTouches;
-  let scrollXDirection = '';
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/Touch/target
   if (touches[0].target.className !== "albumCoverImage") {
     return false;
   }
+  let scrollXDirection = 'ltr';
   if (lastTouchX > touches[0].clientX) {
     scrollXDirection = 'rtl';
-  } else {
-    scrollXDirection = 'ltr';
   }
 
   let albums = albumList.getElementsByTagName('li');
