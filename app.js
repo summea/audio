@@ -647,6 +647,8 @@ function openAlbum(event, albumId) {
     let li = document.createElement("li");
     let link = document.createElement("a");
     let linkText = document.createTextNode(song.name);
+    let downloadLink = document.createElement("a");
+    let downloadLinkImg = document.createElement("i");
     link.id = "song_" + i;
     link.href = song.url;
     link.className = "song";
@@ -657,6 +659,11 @@ function openAlbum(event, albumId) {
     });
     li.value = song.albumSongNumber;
     li.append(link);
+    downloadLink.href = song.url;
+    // ref: https://icons.getbootstrap.com/icons/download/
+    downloadLinkImg.className = "bi bi-download downloadSongButton";
+    downloadLink.append(downloadLinkImg);
+    li.append(downloadLink);
     songList.querySelector("ol").append(li);
     i++;
   });
