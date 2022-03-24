@@ -5,6 +5,9 @@ A place to keep track of changes for this audio project.
 ### Added
 - Song download button for albums list (Issue #111)
 
+### Changed
+- Used circular icons for song download icons (Issue #113)
+
 ## [1.6.0] - 2022-03-12
 ### Added
 - Feature test to ensure that audio player play button starts song play and to see if the audio player slider bar moves (Issue #99)
