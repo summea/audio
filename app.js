@@ -658,8 +658,9 @@ function openAlbum(event, albumId) {
     li.value = song.albumSongNumber;
     li.append(link);
     downloadLink.href = song.url;
-    // ref: https://icons.getbootstrap.com/icons/download/
-    downloadLinkImg.className = "bi bi-download songDownloadButton";
+    // ref: https://icons.getbootstrap.com/
+    downloadLinkImg.className =
+      "bi bi-arrow-down-circle songDownloadButton";
     downloadLink.append(downloadLinkImg);
     li.append(downloadLink);
     songList.querySelector("ol").append(li);
