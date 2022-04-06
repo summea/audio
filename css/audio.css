@@ -191,16 +191,19 @@ body {
 /* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/columns */
 #songList {
   font-family: 'Inconsolata', "Helvetica Neue", Helvetica, Arial, sans-serif;
-  columns: 2;
+  columns: 1;
   column-gap: 0px;
   margin-bottom: 10px;
+  display: none;
 }
 
 #songList ol {
   margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .audioLabel {
+  margin-top: 10px;
   margin-bottom: 5px;
   font-weight: bold;
   font-size: 1em;
@@ -210,4 +213,5 @@ body {
   color: #999;
   font-style: italic;
   font-size: 0.9em;
+  text-align: center;
 }

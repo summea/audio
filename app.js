@@ -635,6 +635,7 @@ function getClickedSong(event) {
 
 function openAlbum(event, albumId) {
   albumListOpen = true;
+  songList.style = 'display: block;';
   let albumIdPieces = albumId.split("_");
   currentAlbum = albumIdPieces[1];
   let currentAlbumIndex = getCurrentAlbumIndex();
