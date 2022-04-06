@@ -7,6 +7,8 @@ A place to keep track of changes for this audio project.
 
 ### Changed
 - Used circular icons for song download icons (Issue #113)
+- Went back to single-column layout for album song lists (Issue #115)
+- Hide album song list box until an album is open (Issue #117) 
 
 ## [1.6.0] - 2022-03-12
 ### Added
