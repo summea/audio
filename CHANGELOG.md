@@ -10,6 +10,9 @@ A place to keep track of changes for this audio project.
 - Went back to single-column layout for album song lists (Issue #115)
 - Hide album song list box until an album is open (Issue #117) 
 
+### Fixed
+- Issue where clicking on album and pressing play had wrong index (Issue #118)
+
 ## [1.6.0] - 2022-03-12
 ### Added
 - Feature test to ensure that audio player play button starts song play and to see if the audio player slider bar moves (Issue #99)
