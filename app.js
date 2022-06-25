@@ -425,9 +425,9 @@ function loadFirstAvailableSong() {
           console.error(error);
       });
   } else {
+    currentAlbum = getCurrentAlbumIndex();
     if (urlHadSongId) {
       urlHadSongId = false;
-      currentAlbum = getCurrentAlbumIndex();
     }
     audioPlayer.src =
       data["albums"][currentAlbum]["songs"][currentSongIndex].url;
