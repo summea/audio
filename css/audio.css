@@ -84,24 +84,6 @@
   font-family: 'Inconsolata', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* Mobile CSS Rules */
-/* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries
-     /Using_media_queries */
-@media (max-width: 500px) {
-  .audioContainer {
-    width: auto;
-  }
-
-  #albumList {
-    width: 350px;
-  }
-
-  /* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
-  #albumList ul {
-    width: 300px;
-  }
-}
-
 .audioNextButtonBox {
   justify-content: right;
   width: 24px;
@@ -129,9 +111,17 @@
 .audioRandomButtonBox {
   flex: auto;
   text-align: center;
+  padding-top: 3px;
 }
 
 .audioRepeatOneButtonBox {
+  flex: auto;
+  text-align: center;
+  padding-top: 3px;
+  padding-right: 8px;
+}
+
+.audioVolumeSliderBox {
   flex: auto;
   text-align: center;
 }
@@ -165,6 +155,14 @@ body {
 .controlBox {
   display: flex;
   flex-direction: row;
+}
+
+#currentAudioTimeBox {
+  padding-top: 2px;
+}
+
+#currentAudioTimeLengthBox {
+  padding-top: 2px;
 }
 
 .songDownloadButton {
@@ -214,4 +212,35 @@ body {
   font-style: italic;
   font-size: 0.9em;
   text-align: center;
+}
+
+#volume {
+  width: 75px;
+}
+
+#volumeBox {
+  padding-top: 1px;
+}
+
+/* Mobile CSS Rules */
+/* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries
+     /Using_media_queries */
+@media (max-width: 500px) {
+  .audioContainer {
+    width: auto;
+  }
+
+  #albumList {
+    width: 350px;
+  }
+
+  /* ref: https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
+  #albumList ul {
+    width: 300px;
+  }
+
+  /* ref: https://stackoverflow.com/a/9948479/1167750 */
+  #volumeBox {
+    display: none;
+  }
 }

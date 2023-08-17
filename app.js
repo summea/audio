@@ -51,6 +51,7 @@ let lastPlayedSongs = [];
 let queryStringParams = new URLSearchParams(location.search);
 let urlHadSongId = false;
 let lastTouchX = 0;
+let volume = document.getElementById("volume");
 
 export function setup() {
   // ref: https://stackoverflow.com/a/53069733/1167750
@@ -559,6 +560,13 @@ repeatOne.addEventListener("click", event => {
     repeatOneButtonEnabled = true;
     repeatOne.className = "repeatOneEnabled";
   }
+});
+
+// ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
+volume.addEventListener("input", event => {
+  // ref: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
+  //   /volume
+  audioPlayer.volume = event.target.value / 100;
 });
 
 function getPrevSong() {
