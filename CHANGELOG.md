@@ -1,6 +1,13 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
+## [Upcoming]
+### Changed
+- Moved volume slider to center area for now (Issue #124)
+
+### Fixed
+- Adjusted center alignment of play button
+
 ## [1.7.0] - 2023-08-16
 ### Added
 - Song download button for albums list (Issue #111)
