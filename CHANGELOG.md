@@ -1,14 +1,17 @@
 # Changelog
 A place to keep track of changes for this audio project.
 
-## [Upcoming]
+## [1.7.0] - 2023-08-16
 ### Added
 - Song download button for albums list (Issue #111)
+- Volume slider especially meant for desktop devices (Issue #123)
 
 ### Changed
 - Used circular icons for song download icons (Issue #113)
 - Went back to single-column layout for album song lists (Issue #115)
-- Hide album song list box until an album is open (Issue #117) 
+- Hide album song list box until an album is open (Issue #117)
+- Updated song database output file
+- Used icons for "random" and "repeat one" buttons
 
 ### Fixed
 - Issue where clicking on album and pressing play had wrong index (Issue #118)
